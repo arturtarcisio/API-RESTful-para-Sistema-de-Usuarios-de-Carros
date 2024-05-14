@@ -8,7 +8,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -33,9 +35,13 @@ public class User implements Serializable {
     private String password;
     private String phone;
 
-//    @OneToMany
-//    @JoinColumn(name = "id_car")
-//    private Set<Car> carList = new HashSet<>();
+    @ManyToMany
+    @JoinTable(
+            name = "tb_user_cars",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "car_id")
+    )
+    private List<Car> cars = new ArrayList<>();
 
 
 }
