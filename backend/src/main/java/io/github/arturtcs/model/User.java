@@ -8,9 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Date;
 
 @Entity
 @Data
@@ -29,15 +27,15 @@ public class User implements Serializable {
     private String email;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate birthday;
+    private Date birthday;
 
     private String login;
     private String password;
     private String phone;
 
-    @OneToMany
-    @JoinColumn(name = "id_car")
-    private Set<Car> carList = new HashSet<>();
+//    @OneToMany
+//    @JoinColumn(name = "id_car")
+//    private Set<Car> carList = new HashSet<>();
 
 
 }
