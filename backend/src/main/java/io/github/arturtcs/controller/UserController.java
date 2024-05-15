@@ -2,6 +2,7 @@ package io.github.arturtcs.controller;
 
 import io.github.arturtcs.model.User;
 import io.github.arturtcs.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public User cadastrarUsuario (@RequestBody User user) {
+    public User cadastrarUsuario (@RequestBody @Valid User user) {
         return userService.registerUser(user);
     }
 
@@ -44,5 +45,9 @@ public class UserController {
         userService.deleteUser(id);
     }
 
-
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateUser(@PathVariable @Valid Long id, @RequestBody User userUpdated) {
+        userService.updateUser(id, userUpdated);
+    }
 }
