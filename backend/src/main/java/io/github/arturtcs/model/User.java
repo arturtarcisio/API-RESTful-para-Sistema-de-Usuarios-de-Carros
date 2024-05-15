@@ -7,15 +7,19 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Data
-@Table(name="TB_USER")
+@Table(name="TB_USERS")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -50,10 +54,9 @@ public class User implements Serializable {
     @ManyToMany
     @JoinTable(
             name = "tb_user_cars",
-            joinColumns = @JoinColumn(name = "user_id"),
+            joinColumns = @JoinColumn(name = "users_id"),
             inverseJoinColumns = @JoinColumn(name = "car_id")
     )
     private List<Car> cars = new ArrayList<>();
-
 
 }

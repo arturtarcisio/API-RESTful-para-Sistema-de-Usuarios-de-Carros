@@ -6,9 +6,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -27,8 +30,14 @@ public class UserController {
     @Operation(description = "Register an user.")
     @PostMapping("/users")
     @ResponseStatus(HttpStatus.CREATED)
-    public User cadastrarUsuario (@RequestBody @Valid User user) {
-        return userService.registerUser(user);
+    public ResponseEntity<User> cadastrarUsuario (@RequestBody @Valid User user) {
+        user = userService.registerUser(user);
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(user.getId())
+                .toUri();
+        return ResponseEntity.created(uri).body(user);
     }
 
     @Operation(description = "Search an user by id")

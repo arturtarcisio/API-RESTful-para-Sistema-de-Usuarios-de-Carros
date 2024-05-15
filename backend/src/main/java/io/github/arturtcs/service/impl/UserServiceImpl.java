@@ -6,6 +6,9 @@ import io.github.arturtcs.repository.UserRepository;
 import io.github.arturtcs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -37,6 +40,7 @@ public class UserServiceImpl implements UserService {
         verifyIfEmailAlreadyExist(user);
         verifyIfLoginAlreadyExist(user);
         removerCarFromUserIfAlreadyExistsInDatabase(user);
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         return userRepository.save(user);
     }
 
@@ -78,23 +82,6 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
     }
 
-    @Override
-    public User login(String login, String password) {
-        User user;
-        if (!login.isEmpty() && !password.isEmpty()) {
-            user = userRepository.findByLogin(login);
-
-            if (user != null && user.getPassword().equals(password))
-                return user;
-            else
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid login or password");
-
-        }
-
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
-
-    }
-
     private void removerCarFromUserIfAlreadyExistsInDatabase(User user) {
         List<Car> carsAlreadySaved = new ArrayList<>();
         if (!user.getCars().isEmpty()) {
@@ -118,7 +105,7 @@ public class UserServiceImpl implements UserService {
 
     private void verifyIfLoginAlreadyExist(User user) {
         User userReturned = userRepository.findByLogin(user.getLogin());
-        if (userReturned != null && !userReturned.getId().equals(user.getId())) {
+        if (userReturned != null && !userReturned.getLogin().equals(user.getLogin())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Login already exists");
         }
     }
@@ -140,5 +127,4 @@ public class UserServiceImpl implements UserService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid fields: The field phone must contain eleven numeric digits.");
         }
     }
-
 }

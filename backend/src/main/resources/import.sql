@@ -1,5 +1,5 @@
-INSERT INTO TB_USER (first_name, last_name, email, birthday, login, password, phone) VALUES ('Artur', 'Silva', 'artur@email.com', '1993-01-14T10:00:00Z', 'atcs', 'h3ll0', '81983351902');
-INSERT INTO TB_USER (first_name, last_name, email, birthday, login, password, phone) VALUES ('Maria', 'Silva', 'maria@email.com', '1980-01-27T10:00:00Z', 'mcsf', 'h3ll0', '81975843837');
+INSERT INTO TB_USERS (first_name, last_name, email, birthday, login, password, phone) VALUES ('Artur', 'Silva', 'artur@email.com', '1993-01-14T10:00:00Z', 'atcs', 'h3ll0', '81983351902');
+INSERT INTO TB_USERS (first_name, last_name, email, birthday, login, password, phone) VALUES ('Maria', 'Silva', 'maria@email.com', '1980-01-27T10:00:00Z', 'mcsf', 'h3ll0', '81975843837');
 
 
 INSERT INTO TB_CAR (car_year, license_plate, model, color) VALUES (1982, 'MUE-2440', 'GOL', 'BRANCO');
@@ -16,10 +16,10 @@ INSERT INTO TB_CAR (car_year, license_plate, model, color) VALUES (2021, 'LGK-52
 INSERT INTO TB_CAR (car_year, license_plate, model, color) VALUES (2021, 'NAE-1241', 'POLO', 'PRATA');
 INSERT INTO TB_CAR (car_year, license_plate, model, color) VALUES (2022, 'HNY-4452', 'ONIX', 'VINHO');
 
-INSERT INTO TB_USER_CARS (USER_ID, CAR_ID) VALUES (1, 1);
-INSERT INTO TB_USER_CARS (USER_ID, CAR_ID) VALUES (1, 2);
-INSERT INTO TB_USER_CARS (USER_ID, CAR_ID) VALUES (1, 3);
-INSERT INTO TB_USER_CARS (USER_ID, CAR_ID) VALUES (1, 4);
+INSERT INTO TB_USER_CARS (USERS_ID, CAR_ID) VALUES (1, 1);
+INSERT INTO TB_USER_CARS (USERS_ID, CAR_ID) VALUES (1, 2);
+INSERT INTO TB_USER_CARS (USERS_ID, CAR_ID) VALUES (1, 3);
+INSERT INTO TB_USER_CARS (USERS_ID, CAR_ID) VALUES (1, 4);
 
-INSERT INTO TB_USER_CARS (USER_ID, CAR_ID) VALUES (2, 5);
-INSERT INTO TB_USER_CARS (USER_ID, CAR_ID) VALUES (2, 6);
+INSERT INTO TB_USER_CARS (USERS_ID, CAR_ID) VALUES (2, 5);
+INSERT INTO TB_USER_CARS (USERS_ID, CAR_ID) VALUES (2, 6);
