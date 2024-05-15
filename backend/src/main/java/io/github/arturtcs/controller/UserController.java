@@ -15,37 +15,37 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping
+    @GetMapping("/users")
     public List<User> listarTodosOsUsuarios() {
         return userService.showUsers();
     }
 
-    @PostMapping
+    @PostMapping("/users")
     @ResponseStatus(HttpStatus.CREATED)
     public User cadastrarUsuario (@RequestBody @Valid User user) {
         return userService.registerUser(user);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/users/{id}")
     public User findById (@PathVariable Long id) {
         return userService
                 .findUserById(id)
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado") );
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/users/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUserById (@PathVariable Long id) {
         userService.deleteUser(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/users/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateUser(@PathVariable @Valid Long id, @RequestBody User userUpdated) {
         userService.updateUser(id, userUpdated);
