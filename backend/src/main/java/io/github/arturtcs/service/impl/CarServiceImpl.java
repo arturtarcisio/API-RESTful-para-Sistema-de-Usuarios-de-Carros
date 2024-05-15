@@ -1,12 +1,13 @@
-package io.github.arturtcs.service;
+package io.github.arturtcs.service.impl;
 
 import io.github.arturtcs.model.Car;
 import io.github.arturtcs.repository.CarRepository;
+import io.github.arturtcs.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CarServiceImpl implements CarService{
+public class CarServiceImpl implements CarService {
 
     @Autowired
     private CarRepository carRepository;

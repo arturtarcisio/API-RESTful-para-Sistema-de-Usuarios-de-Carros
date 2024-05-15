@@ -1,11 +1,13 @@
-package io.github.arturtcs.service;
+package io.github.arturtcs.service.impl;
 
 import io.github.arturtcs.model.Car;
 import io.github.arturtcs.model.User;
 import io.github.arturtcs.repository.UserRepository;
-import io.github.arturtcs.service.exception.ResourceNotFoundException;
+import io.github.arturtcs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findUserById(Long id) {
         return userRepository.findById(id);
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        userRepository
+                .findById(id)
+                .map( user -> {
+                    userRepository.delete(user);
+                    return Void.TYPE;
+                })
+                .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found") );
     }
 
     private void removerCarFromUserIfAlreadyExistsInDatabase(User user) {

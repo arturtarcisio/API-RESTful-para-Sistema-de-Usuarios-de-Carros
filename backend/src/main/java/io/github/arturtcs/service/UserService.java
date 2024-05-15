@@ -9,4 +9,5 @@ public interface UserService {
     List<User> showUsers();
     User registerUser(User user);
     Optional<User> findUserById(Long id);
+    void deleteUser(Long id);
 }

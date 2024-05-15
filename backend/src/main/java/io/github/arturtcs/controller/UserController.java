@@ -1,9 +1,7 @@
 package io.github.arturtcs.controller;
 
 import io.github.arturtcs.model.User;
-import io.github.arturtcs.service.CarServiceImpl;
 import io.github.arturtcs.service.UserService;
-import io.github.arturtcs.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,4 +40,12 @@ public class UserController {
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteUserById (@PathVariable Long id) {
+        userService.deleteUser(id);
+    }
+
+
 }
