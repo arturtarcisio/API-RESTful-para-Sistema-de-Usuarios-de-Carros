@@ -2,6 +2,7 @@ package io.github.arturtcs.controller;
 
 import io.github.arturtcs.model.User;
 import io.github.arturtcs.service.CarServiceImpl;
+import io.github.arturtcs.service.UserService;
 import io.github.arturtcs.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,7 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @GetMapping
     public ResponseEntity<List<User>> listarTodosOsUsuarios() {
@@ -33,5 +34,12 @@ public class UserController {
                 .buildAndExpand(user.getId())
                 .toUri();
         return ResponseEntity.created(uri).body(user);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> findById (@PathVariable Long id) {
+        return userService.findUserById(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
