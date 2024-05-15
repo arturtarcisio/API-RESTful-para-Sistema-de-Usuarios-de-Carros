@@ -60,8 +60,4 @@ public class User implements Serializable {
         return passwordEncoder.matches(loginRequestDTO.password(), this.getPassword());
     }
 
-    public boolean isLoginCorrectDecoder(LoginRequestDTO loginRequestDTO, PasswordEncoder passwordEncoder) {
-        return passwordEncoder.matches(loginRequestDTO.password(), this.getPassword());
-    }
-
 }
