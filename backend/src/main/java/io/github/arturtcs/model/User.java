@@ -27,10 +27,7 @@ public class User implements Serializable {
     private String firstName;
     private String lastName;
     private String email;
-
-    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date birthday;
-
     private String login;
     private String password;
     private String phone;
