@@ -1,19 +1,16 @@
 package io.github.arturtcs.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import io.github.arturtcs.model.dto.LoginRequestDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -58,5 +55,13 @@ public class User implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "car_id")
     )
     private List<Car> cars = new ArrayList<>();
+
+    public boolean isLoginCorrect(LoginRequestDTO loginRequestDTO, PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(loginRequestDTO.password(), this.getPassword());
+    }
+
+    public boolean isLoginCorrectDecoder(LoginRequestDTO loginRequestDTO, PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(loginRequestDTO.password(), this.getPassword());
+    }
 
 }
