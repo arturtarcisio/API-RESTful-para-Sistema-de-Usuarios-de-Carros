@@ -6,7 +6,9 @@ import io.github.arturtcs.model.dto.LoginResponseDTO;
 import io.github.arturtcs.repository.UserRepository;
 import io.github.arturtcs.service.TokenService;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.security.interfaces.RSAPublicKey;
 import java.time.Instant;
+import java.util.Date;
 
 @Service
 public class TokenServiceImpl implements TokenService {
@@ -42,7 +45,7 @@ public class TokenServiceImpl implements TokenService {
         }
 
         var now = Instant.now();
-        var expiresIn = 600L;
+        var expiresIn = 10L;
 
         var claims = JwtClaimsSet.builder()
                 .issuer("mybackend")
@@ -58,9 +61,16 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public User extractUserInfo(String token) {
-        var claims = extractAllClaims(token);
-        var userId = claims.getSubject();
-        return userRepository.findById(Long.valueOf(userId)).orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+        try{
+            if(StringUtils.isEmpty(token))
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized: Missing token");
+
+             var claims = extractAllClaims(token);
+            var userId = claims.getSubject();
+            return userRepository.findById(Long.valueOf(userId)).orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+        } catch (ExpiredJwtException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized - invalid session");
+        }
     }
 
     private Claims extractAllClaims(String token) {
@@ -72,5 +82,19 @@ public class TokenServiceImpl implements TokenService {
                 .getBody();
     }
 
+//    public boolean isTokenValid(String token) {
+//        var claims = extractAllClaims(token);
+//        var userId = claims.getSubject();
+//        var user = userRepository.findById(Long.valueOf(userId)).orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+//        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+//    }
+//
+//    private boolean isTokenExpired(String token) {
+//        return extractExpiration(token).before(new Date());
+//    }
+//
+//    private Date extractExpiration(String token) {
+//        return extractClaim(token, Claims::getExpiration);
+//    }
 
 }
