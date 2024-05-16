@@ -1,13 +1,10 @@
 package io.github.arturtcs.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.arturtcs.model.dto.LoginRequestDTO;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -23,6 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@EqualsAndHashCode
 public class User implements Serializable {
 
     @Id
@@ -51,6 +49,7 @@ public class User implements Serializable {
 
     private String phone;
 
+    @Nullable
     @OneToMany(mappedBy ="userOwner" , orphanRemoval = true)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Car> cars = new ArrayList<>();

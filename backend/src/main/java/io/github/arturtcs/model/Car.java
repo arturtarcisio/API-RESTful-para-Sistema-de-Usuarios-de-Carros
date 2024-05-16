@@ -3,10 +3,7 @@ package io.github.arturtcs.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -16,6 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@EqualsAndHashCode
 public class Car implements Serializable {
 
     @Id
@@ -36,7 +34,6 @@ public class Car implements Serializable {
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name="users_id", nullable = false)
+    @JoinColumn(name="users", nullable = false)
     private User userOwner;
-
 }

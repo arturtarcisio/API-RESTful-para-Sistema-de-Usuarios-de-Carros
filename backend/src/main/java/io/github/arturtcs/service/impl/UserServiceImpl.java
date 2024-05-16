@@ -41,9 +41,17 @@ public class UserServiceImpl implements UserService {
         validatePhone(user.getPhone());
         verifyIfEmailAlreadyExist(user);
         verifyIfLoginAlreadyExist(user);
-        removerCarFromUserIfAlreadyExistsInDatabase(user);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+
+        //REVER ESSA LINHA ERRO
+        var userSaved = userRepository.save(user);
+
+        if (!user.getCars().isEmpty())
+            carService.registerCarUser(userSaved);
+
+
+        return userSaved;
+
     }
 
     @Override
@@ -82,20 +90,6 @@ public class UserServiceImpl implements UserService {
                     return userRepository.save(user);
                 })
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
-    }
-
-    private void removerCarFromUserIfAlreadyExistsInDatabase(User user) {
-        List<Car> carsAlreadySaved = new ArrayList<>();
-        if (!user.getCars().isEmpty()) {
-            user.getCars().forEach(car -> {
-                if (carService.verifyCarExistBylicensePlate(car.getLicensePlate()) == null) {
-                    carService.saveCar(car);
-                } else {
-                    carsAlreadySaved.add(car);
-                }
-            });
-        }
-        user.getCars().removeAll(carsAlreadySaved);
     }
 
     private void verifyIfEmailAlreadyExist(User user) {

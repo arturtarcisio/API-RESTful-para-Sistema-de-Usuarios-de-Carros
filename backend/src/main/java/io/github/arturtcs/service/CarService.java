@@ -12,4 +12,7 @@ public interface CarService {
     List<Car> returnAllCarsById(String token);
     Car registerCar(String token, Car car);
     Car returnCarById(String token, Long id);
+//    List<Car> verifyIfCarExistsAndRemoveFromList(List<Car> cars);
+    void registerCarUser(User user);
+    void removeACarOfUserLogged(String token, Long id);
 }

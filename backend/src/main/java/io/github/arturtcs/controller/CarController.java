@@ -5,6 +5,7 @@ import io.github.arturtcs.service.CarService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -45,6 +46,13 @@ public class CarController {
     public ResponseEntity<Car> returnCarById(@RequestHeader("Authorization") String token, @PathVariable Long id) {
         var car = carService.returnCarById(token.replace(TYPE_TOKEN, ""), id);
         return ResponseEntity.ok(car);
+    }
+
+    @Operation(description = "Delete a car of logged user")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUserById (@RequestHeader("Authorization") String token, @PathVariable Long id) {
+        carService.removeACarOfUserLogged(token.replace(TYPE_TOKEN, ""), id);
+        return ResponseEntity.noContent().build();
     }
 
 

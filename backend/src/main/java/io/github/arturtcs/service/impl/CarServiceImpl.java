@@ -5,14 +5,12 @@ import io.github.arturtcs.model.User;
 import io.github.arturtcs.repository.CarRepository;
 import io.github.arturtcs.service.CarService;
 import io.github.arturtcs.service.TokenService;
-import io.github.arturtcs.service.UserService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -53,6 +51,34 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public void registerCarUser(User user) {
+       user.getCars().forEach(car -> {
+           verifyIfLicensePlateIsValid(car);
+           verifyIfCarExists(car);
+           car.setUserOwner(user);
+           carRepository.save(car);
+       });
+    }
+
+    @Override
+    public void removeACarOfUserLogged(String token, Long id) {
+        var user = tokenService.extractUserInfo(token);
+        var carroOptional = carRepository.findById(id);
+
+        if (carroOptional.isPresent()) {
+            var carro = carroOptional.get();
+            if (user.getCars().contains(carro)) {
+                user.getCars().remove(carro);
+                carRepository.delete(carro);
+            } else {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "You don't have this car in your list.");
+            }
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "You don't have this car in your list.");
+        }
+    }
+
+    @Override
     public Car returnCarById(String token, Long id) {
         var user = tokenService.extractUserInfo(token);
         Optional<Car> optionalCar = user.getCars().stream()
@@ -61,16 +87,24 @@ public class CarServiceImpl implements CarService {
         return optionalCar.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Car not found"));
     }
 
+//    @Override
+//    private List<Car> verifyIfCarExistsAndRemoveFromList(List<Car> cars) {
+//        List<Car> filteredCars = cars.stream()
+//                .filter(car -> carRepository.findBylicensePlate(car.getLicensePlate()) == null)
+//                .collect(Collectors.toList());
+//
+//        return filteredCars;
+//    }
+
     private void verifyIfLicensePlateIsValid(Car car) {
         String regexLicensePlate = "^[A-Z]{3}-\\d{4}$";
         Pattern pattern = Pattern.compile(regexLicensePlate);
         Matcher matcher = pattern.matcher(car.getLicensePlate());
         if (car.getLicensePlate().matches("[0-9]+") || !matcher.matches())
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid fields: Liscense Plate");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid fields: License Plate");
     }
 
     private void verifyIfCarExists(Car car) {
-        List<Car> carsAlreadySaved = new ArrayList<>();
         car = carRepository.findBylicensePlate(car.getLicensePlate());
         if (car != null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "License plate already exists.");
