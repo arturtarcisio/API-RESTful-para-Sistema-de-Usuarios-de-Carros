@@ -50,13 +50,10 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void registerCarUser(User user) {
-       user.getCars().forEach(car -> {
-           verifyIfLicensePlateIsValid(car);
-           verifyIfCarExists(car);
-           car.setUserOwner(user);
-           carRepository.save(car);
-       });
+    public void registerCarUser(Car car) {
+        verifyIfLicensePlateIsValid(car);
+        verifyIfCarExists(car);
+        carRepository.save(car);
     }
 
     @Override

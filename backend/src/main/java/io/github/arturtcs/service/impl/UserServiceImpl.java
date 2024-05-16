@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +35,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User registerUser(User user) throws ResponseStatusException{
+    public User registerUser(User user) throws ResponseStatusException {
         validateStringOnlyLetters(user.getFirstName(), "firstName");
         validateStringOnlyLetters(user.getLastName(), "lastName");
         validateEmail(user.getEmail());
@@ -42,16 +43,18 @@ public class UserServiceImpl implements UserService {
         verifyIfEmailAlreadyExist(user);
         verifyIfLoginAlreadyExist(user);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        //REVER ESSA LINHA ERRO
-        var userSaved = userRepository.save(user);
-
-        if (!user.getCars().isEmpty())
-            carService.registerCarUser(userSaved);
-
-
+        user.setCreatedAt(Instant.now());
+        List<Car> cars = user.getCars();
+        user.setCars(new ArrayList<>());
+        User userSaved = userRepository.save(user);
+        if (cars != null && !cars.isEmpty()) {
+            cars.forEach(car -> {
+                car.setUserOwner(userSaved);
+                carService.registerCarUser(car);
+                userSaved.getCars().add(car);
+            });
+        }
         return userSaved;
-
     }
 
     @Override
