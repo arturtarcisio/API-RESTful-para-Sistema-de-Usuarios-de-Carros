@@ -1,5 +1,6 @@
 package io.github.arturtcs.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.arturtcs.model.dto.LoginRequestDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -7,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.Serializable;
@@ -49,12 +51,8 @@ public class User implements Serializable {
 
     private String phone;
 
-    @ManyToMany
-    @JoinTable(
-            name = "tb_user_cars",
-            joinColumns = @JoinColumn(name = "users_id"),
-            inverseJoinColumns = @JoinColumn(name = "car_id")
-    )
+    @OneToMany(mappedBy ="userOwner" , orphanRemoval = true)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Car> cars = new ArrayList<>();
 
     @Column(nullable = true)

@@ -34,28 +34,42 @@ public class App implements CommandLineRunner
 
     @Override
     public void run(String... args) throws Exception {
-        List<Car> cars = Arrays.asList(
-                new Car(1L,1982, "MUE-2440", "GOL", "BRANCO"),
-                new Car(2L, 1982, "HPP-1452", "GOL", "PRETO"),
-                new Car(3L, 1990, "NBV-3535", "SIENA", "PRATA"),
-                new Car(4L,2022, "IAP-2847", "ONIX", "BRANCO"),
-                new Car(5L,1971, "EWT-9276", "FUSCA", "AMARELO"),
-                new Car(6L,2019, "MQS-2478", "HB20", "BRANCO"),
-                new Car(7L,1970, "MDQ-1937", "BRASILIA", "AMARELA")
-        );
-        carRepository.saveAll(cars);
+//        List<User> users = Arrays.asList(
+//                new User(1L,"Artur", "Silva", "artur@email.com",  new Date(93, 0, 14), "atcs", passwordEncoder.encode("h3ll0"), "81983351902",
+//                        Arrays.asList(new Car(1L, 1982, "MUE-2440", "GOL", "BRANCO"), new Car(2L, 1982, "HPP-1452", "GOL", "PRETO")),
+//                        Instant.now(),
+//                        null),
+//
+//                new User(2L,"Maria", "Silva", "maria@email.com", new Date(93, 0, 14), "mcsf", passwordEncoder.encode("h3ll038475"), "81975843837", Arrays.asList(new Car(5L,1971, "EWT-9276", "FUSCA", "AMARELO")),
+//                        Instant.now(),
+//                        null)
+//        );
+//        userRepository.saveAll(users);
+//
+//
+//
+//        List<Car> cars = Arrays.asList(
+//                new Car(1L,1982, "MUE-2440", "GOL", "BRANCO"),
+//                new Car(2L, 1982, "HPP-1452", "GOL", "PRETO"),
+//                new Car(3L, 1990, "NBV-3535", "SIENA", "PRATA"),
+//                new Car(4L,2022, "IAP-2847", "ONIX", "BRANCO"),
+//                new Car(5L,1971, "EWT-9276", "FUSCA", "AMARELO"),
+//                new Car(6L,2019, "MQS-2478", "HB20", "BRANCO"),
+//                new Car(7L,1970, "MDQ-1937", "BRASILIA", "AMARELA")
+//        );
+//        carRepository.saveAll(cars);
 
-        List<User> users = Arrays.asList(
-                new User(1L,"Artur", "Silva", "artur@email.com",  new Date(93, 0, 14), "atcs", passwordEncoder.encode("h3ll0"), "81983351902",
-                        Arrays.asList(new Car(1L, 1982, "MUE-2440", "GOL", "BRANCO"), new Car(2L, 1982, "HPP-1452", "GOL", "PRETO")),
-                        Instant.now(),
-                        null),
+        User user1 = new User(1L,"Artur", "Silva", "artur@email.com",  new Date(93, 0, 14), "atcs", passwordEncoder.encode("h3ll0"), "81983351902", null, Instant.now(), null);
+        User user2 = new User(2L,"Maria", "Silva", "maria@email.com", new Date(93, 0, 14), "mcsf", passwordEncoder.encode("h3ll038475"), "81975843837", null, Instant.now(), null);
+        userRepository.saveAll(Arrays.asList(user1, user2));
 
-                new User(2L,"Maria", "Silva", "maria@email.com", new Date(93, 0, 14), "mcsf", passwordEncoder.encode("h3ll038475"), "81975843837", Arrays.asList(new Car(5L,1971, "EWT-9276", "FUSCA", "AMARELO")),
-                        Instant.now(),
-                        null)
-        );
-        userRepository.saveAll(users);
+        Car car1 = new Car(1L,1982, "MUE-2440", "GOL", "BRANCO", user1);
+        Car car2 = new Car(2L, 1982, "HPP-1452", "GOL", "PRETO", user1);
+        Car car3 = new Car(3L, 1990, "NBV-3535", "SIENA", "PRATA", user1);
+        Car car4 = new Car(4L,2022, "IAP-2847", "ONIX", "BRANCO", user2);
+        Car car5 = new Car(5L,1971, "EWT-9276", "FUSCA", "AMARELO", user2);
+        carRepository.saveAll(Arrays.asList(car1, car2, car3, car4, car5));
+
 
     }
 }

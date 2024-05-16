@@ -1,6 +1,8 @@
 package io.github.arturtcs.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,8 +23,20 @@ public class Car implements Serializable {
     private Long id;
 
     private int carYear;
+
+    @Column(nullable = false, length = 50)
+    @NotEmpty(message = "{field.licensePlate.required}")
     private String licensePlate;
+
+    @Column(nullable = false, length = 50)
+    @NotEmpty(message = "{field.carModel.required}")
     private String model;
+
     private String color;
+
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name="users_id", nullable = false)
+    private User userOwner;
 
 }

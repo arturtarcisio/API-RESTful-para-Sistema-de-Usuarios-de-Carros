@@ -3,6 +3,7 @@ package io.github.arturtcs.service.impl;
 import io.github.arturtcs.model.Car;
 import io.github.arturtcs.model.User;
 import io.github.arturtcs.repository.UserRepository;
+import io.github.arturtcs.service.CarService;
 import io.github.arturtcs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private CarServiceImpl carService;
+    private CarService carService;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;

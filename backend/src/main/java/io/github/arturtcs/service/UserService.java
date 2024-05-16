@@ -1,9 +1,6 @@
 package io.github.arturtcs.service;
 
 import io.github.arturtcs.model.User;
-import io.github.arturtcs.model.dto.LoginRequestDTO;
-import io.github.arturtcs.model.dto.LoginResponseDTO;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 import java.util.Optional;

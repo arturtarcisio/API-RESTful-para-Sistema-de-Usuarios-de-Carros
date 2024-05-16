@@ -29,7 +29,6 @@ public class UserController {
 
     @Operation(description = "Register an user.")
     @PostMapping("/users")
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<User> registerAnUser (@RequestBody @Valid User user) {
         user = userService.registerUser(user);
         URI uri = ServletUriComponentsBuilder
