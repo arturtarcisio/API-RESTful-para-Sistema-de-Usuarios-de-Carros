@@ -15,4 +15,6 @@ public interface CarService {
 //    List<Car> verifyIfCarExistsAndRemoveFromList(List<Car> cars);
     void registerCarUser(User user);
     void removeACarOfUserLogged(String token, Long id);
+
+    void updateCarUserLogged(String token, Long id, Car car);
 }

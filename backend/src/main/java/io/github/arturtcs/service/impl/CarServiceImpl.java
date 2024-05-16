@@ -5,7 +5,6 @@ import io.github.arturtcs.model.User;
 import io.github.arturtcs.repository.CarRepository;
 import io.github.arturtcs.service.CarService;
 import io.github.arturtcs.service.TokenService;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -76,6 +75,26 @@ public class CarServiceImpl implements CarService {
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "You don't have this car in your list.");
         }
+    }
+
+    @Override
+    public void updateCarUserLogged(String token, Long id, Car car) {
+        var user = tokenService.extractUserInfo(token);
+        Optional<Car> optionalCar = user.getCars().stream()
+                .filter(c -> c.getId().equals(id))
+                .findFirst();
+
+        Car existingCar = optionalCar.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Car not found"));
+
+        verifyIfCarExists(car);
+        verifyIfLicensePlateIsValid(car);
+
+        existingCar.setCarYear(car.getCarYear());
+        existingCar.setColor(car.getColor());
+        existingCar.setLicensePlate(car.getLicensePlate());
+        existingCar.setModel(car.getModel());
+
+        carRepository.save(existingCar);
     }
 
     @Override

@@ -55,5 +55,12 @@ public class CarController {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(description = "Update a car of logged user")
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateCarUserLogged (@RequestHeader("Authorization") String token, @PathVariable Long id, @RequestBody @Valid Car car) {
+        carService.updateCarUserLogged(token.replace(TYPE_TOKEN, ""), id, car);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }
