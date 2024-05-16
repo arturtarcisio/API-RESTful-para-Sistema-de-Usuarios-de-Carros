@@ -14,5 +14,4 @@ public interface UserService {
     Optional<User> findUserById(Long id);
     void deleteUser(Long id);
     User updateUser(Long id, User user);
-    LoginResponseDTO findByLogin(LoginRequestDTO loginRequestDTO);
 }
