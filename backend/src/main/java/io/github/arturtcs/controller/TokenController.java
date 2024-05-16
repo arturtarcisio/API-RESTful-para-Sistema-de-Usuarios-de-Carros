@@ -33,6 +33,8 @@ public class TokenController {
                         .birthday(userToken.getBirthday())
                         .phone(userToken.getPhone())
                         .cars(userToken.getCars())
+                        .createdAt(userToken.getCreatedAt())
+                        .lastLogin(userToken.getLastLogin())
                 .build());
     }
 }

@@ -45,7 +45,7 @@ public class TokenServiceImpl implements TokenService {
         }
 
         var now = Instant.now();
-        var expiresIn = 10L;
+        var expiresIn = 600L;
 
         var claims = JwtClaimsSet.builder()
                 .issuer("mybackend")
@@ -55,6 +55,9 @@ public class TokenServiceImpl implements TokenService {
                 .build();
 
         var jwtValue = jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+
+        user.setLastLogin(Instant.now());
+        userRepository.save(user);
 
         return new LoginResponseDTO(jwtValue, expiresIn, user.getFirstName(), user.getEmail());
     }

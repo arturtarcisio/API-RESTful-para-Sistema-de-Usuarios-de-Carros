@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -55,6 +56,12 @@ public class User implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "car_id")
     )
     private List<Car> cars = new ArrayList<>();
+
+    @Column(nullable = true)
+    private Instant createdAt;
+
+    @Column(nullable = true)
+    private Instant lastLogin;
 
     public boolean isLoginCorrect(LoginRequestDTO loginRequestDTO, PasswordEncoder passwordEncoder) {
         return passwordEncoder.matches(loginRequestDTO.password(), this.getPassword());

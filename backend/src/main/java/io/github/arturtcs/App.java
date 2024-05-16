@@ -11,6 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -46,9 +47,13 @@ public class App implements CommandLineRunner
 
         List<User> users = Arrays.asList(
                 new User(1L,"Artur", "Silva", "artur@email.com",  new Date(93, 0, 14), "atcs", passwordEncoder.encode("h3ll0"), "81983351902",
-                        Arrays.asList(new Car(1L, 1982, "MUE-2440", "GOL", "BRANCO"), new Car(2L, 1982, "HPP-1452", "GOL", "PRETO"))),
+                        Arrays.asList(new Car(1L, 1982, "MUE-2440", "GOL", "BRANCO"), new Car(2L, 1982, "HPP-1452", "GOL", "PRETO")),
+                        Instant.now(),
+                        null),
 
-                new User(2L,"Maria", "Silva", "maria@email.com", new Date(93, 0, 14), "mcsf", passwordEncoder.encode("h3ll038475"), "81975843837", Arrays.asList(new Car(5L,1971, "EWT-9276", "FUSCA", "AMARELO")))
+                new User(2L,"Maria", "Silva", "maria@email.com", new Date(93, 0, 14), "mcsf", passwordEncoder.encode("h3ll038475"), "81975843837", Arrays.asList(new Car(5L,1971, "EWT-9276", "FUSCA", "AMARELO")),
+                        Instant.now(),
+                        null)
         );
         userRepository.saveAll(users);
 
