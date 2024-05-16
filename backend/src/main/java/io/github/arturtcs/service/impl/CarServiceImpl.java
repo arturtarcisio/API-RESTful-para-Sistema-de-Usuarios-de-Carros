@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,6 +50,15 @@ public class CarServiceImpl implements CarService {
         verifyIfLicensePlateIsValid(car);
         car.setUserOwner(user);
         return carRepository.save(car);
+    }
+
+    @Override
+    public Car returnCarById(String token, Long id) {
+        var user = tokenService.extractUserInfo(token);
+        Optional<Car> optionalCar = user.getCars().stream()
+                .filter(car -> car.getId().equals(id))
+                .findFirst();
+        return optionalCar.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Car not found"));
     }
 
     private void verifyIfLicensePlateIsValid(Car car) {

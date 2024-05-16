@@ -1,7 +1,6 @@
 package io.github.arturtcs.controller;
 
 import io.github.arturtcs.model.Car;
-import io.github.arturtcs.model.User;
 import io.github.arturtcs.service.CarService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -39,6 +38,13 @@ public class CarController {
                 .buildAndExpand(car.getId())
                 .toUri();
         return ResponseEntity.created(uri).body(car);
+    }
+
+    @Operation(description = "Search car by id for logged user")
+    @GetMapping("/{id}")
+    public ResponseEntity<Car> returnCarById(@RequestHeader("Authorization") String token, @PathVariable Long id) {
+        var car = carService.returnCarById(token.replace(TYPE_TOKEN, ""), id);
+        return ResponseEntity.ok(car);
     }
 
 

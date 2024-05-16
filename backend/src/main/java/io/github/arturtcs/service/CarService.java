@@ -11,4 +11,5 @@ public interface CarService {
     Car saveCar(Car car);
     List<Car> returnAllCarsById(String token);
     Car registerCar(String token, Car car);
+    Car returnCarById(String token, Long id);
 }

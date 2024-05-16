@@ -56,7 +56,7 @@ public class UserController {
     @Operation(description = "Update an user by id")
     @PutMapping("/users/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateUser(@PathVariable @Valid Long id, @RequestBody User userUpdated) {
+    public void updateUser(@PathVariable Long id, @RequestBody @Valid User userUpdated) {
         userService.updateUser(id, userUpdated);
     }
 }
