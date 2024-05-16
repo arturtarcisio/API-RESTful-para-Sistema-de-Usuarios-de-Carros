@@ -23,14 +23,14 @@ public class UserController {
 
     @Operation(description = "Return all users.")
     @GetMapping("/users")
-    public List<User> listarTodosOsUsuarios() {
+    public List<User> returnAllUser() {
         return userService.showUsers();
     }
 
     @Operation(description = "Register an user.")
     @PostMapping("/users")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<User> cadastrarUsuario (@RequestBody @Valid User user) {
+    public ResponseEntity<User> registerAnUser (@RequestBody @Valid User user) {
         user = userService.registerUser(user);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
