@@ -34,3 +34,52 @@ Abaixo segue histórias de usuários que foram implementadas:
 25. **HU.23** - Criando funcionalidade de remover um carro do usuário logado pelo id
 26. **HU.24** - Criando funcionalidade de atualizar um carro do usuário logado pelo id
 27. **HU.25** - Ajuste ao salvar usuario por consequencia do mapeamento
+28. **HU.26** - Ajuste de codigo, em validacoes e nas exceptions
+
+# Solução
+
+A API foi desenvolvida em Java versão 22, trata-se de uma API RESTful para controle de usuários e carros.
+
+## Tecnologias Utilizadas
+
+- Spring Boot
+- JWT
+- Spring Security
+- Spring Data JPA
+- Criptografia de senha de usuário com BCrypt
+- Banco de Dados H2
+- Maven
+- Tomcat
+- Swagger
+
+## Rotas Disponíveis
+
+### Sem Autenticação:
+
+- **POST /api/signin**: Esta rota espera um objeto com os campos login e password e retorna o token de acesso da API (JWT) com as informações do usuário logado.
+
+- **GET /api/users**: Lista todos os usuários.
+  
+- **POST /api/users**: Cadastra um novo usuário.
+  
+- **GET /api/users/{id}**: Busca um usuário pelo ID.
+  
+- **DELETE /api/users/{id}**: Remove um usuário pelo ID.
+  
+- **PUT /api/users/{id}**: Atualiza um usuário pelo ID.
+
+### Com Autenticação:
+
+- **GET /api/me**: Retorna as informações do usuário logado (firstName, lastName, email, birthday, login, phone, cars) + createdAt (data da criação do usuário) + lastLogin (data da última vez que o usuário realizou login).
+
+- **GET /api/cars**: Lista todos os carros do usuário logado.
+  
+- **POST /api/cars**: Cadastra um novo carro para o usuário logado.
+  
+- **GET /api/cars/{id}**: Busca um carro do usuário logado pelo ID.
+  
+- **DELETE /api/cars/{id}**: Remove um carro do usuário logado pelo ID.
+  
+- **PUT /api/cars/{id}**: Atualiza um carro do usuário logado pelo ID.
+
+  ![image](https://github.com/arturtarcisio/API-RESTful-para-Sistema-de-Usuarios-de-Carros/assets/42079767/c1988dc2-83e1-4bcc-a779-7390cd62e4dd)
