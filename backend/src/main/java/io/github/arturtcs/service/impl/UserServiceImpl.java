@@ -5,6 +5,7 @@ import io.github.arturtcs.model.User;
 import io.github.arturtcs.repository.UserRepository;
 import io.github.arturtcs.service.CarService;
 import io.github.arturtcs.service.UserService;
+import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -75,22 +76,43 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateUser(Long id, User userUpdated) {
-        validateStringOnlyLetters(userUpdated.getFirstName(), "firstName");
-        validateStringOnlyLetters(userUpdated.getLastName(), "lastName");
-        validateEmail(userUpdated.getEmail());
-        validatePhone(userUpdated.getPhone());
-        verifyIfEmailAlreadyExist(userUpdated);
-        verifyIfLoginAlreadyExist(userUpdated);
         return userRepository
                 .findById(id)
                 .map( user -> {
+                    userUpdated.setId(user.getId());
+                    validateStringOnlyLetters(userUpdated.getFirstName(), "firstName");
                     user.setFirstName(userUpdated.getFirstName());
+
+                    validateStringOnlyLetters(userUpdated.getLastName(), "lastName");
                     user.setLastName(userUpdated.getLastName());
+
+                    validateEmail(userUpdated.getEmail());
+                    verifyIfEmailAlreadyExist(userUpdated);
                     user.setEmail(userUpdated.getEmail());
+
+                    verifyIfLoginAlreadyExist(userUpdated);
                     user.setLogin(userUpdated.getLogin());
-                    user.setPassword(userUpdated.getPassword());
+
+                    user.setPassword(passwordEncoder.encode(userUpdated.getPassword()));
+
+                    validatePhone(userUpdated.getPhone());
                     user.setPhone(userUpdated.getPhone());
-                    return userRepository.save(user);
+                    user.getCars().removeAll(user.getCars());
+                    var userSaved = userRepository.save(user);
+
+                    if( !userUpdated.getCars().isEmpty() ){
+                        userUpdated.getCars().forEach( car -> {
+                            car.setUserOwner(userSaved);
+                            if (StringUtils.isEmpty(car.getLicensePlate()))
+                                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Missing field: License plate");
+
+                            if (StringUtils.isEmpty(car.getModel()))
+                                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Missing field: Car model");
+                            carService.registerCarUser(car);
+                        });
+                    }
+
+                    return userSaved;
                 })
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
     }
@@ -104,13 +126,13 @@ public class UserServiceImpl implements UserService {
 
     private void verifyIfLoginAlreadyExist(User user) {
         User userReturned = userRepository.findByLogin(user.getLogin());
-        if (userReturned != null && !userReturned.getLogin().equals(user.getLogin())) {
+        if (userReturned != null && !userReturned.getId().equals(user.getId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Login already exists");
         }
     }
 
     private static void validateStringOnlyLetters(String value, String fieldName) {
-        if (value == null || !value.matches("^[a-zA-ZÀ-ú]+$")) {
+        if (value == null || !value.matches("^[a-zA-ZÀ-ú ]+$")) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid fields: The field " + fieldName + " must contain only letters");
         }
     }

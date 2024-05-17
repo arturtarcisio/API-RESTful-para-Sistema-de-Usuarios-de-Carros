@@ -3,6 +3,7 @@ package io.github.arturtcs.model;
 import io.github.arturtcs.model.dto.LoginRequestDTO;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
@@ -27,19 +28,20 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 150)
+    @Column(nullable = false, length = 50)
     @NotEmpty(message = "{field.firstName.required}")
     private String firstName;
 
+    @Column(length = 50)
     private String lastName;
 
-    @Column(nullable = false, length = 150)
+    @Column(nullable = false, length = 50)
     @NotEmpty(message = "{field.email.required}")
     private String email;
 
     private Date birthday;
 
-    @Column(nullable = false, length = 150)
+    @Column(nullable = false, length = 50)
     @NotEmpty(message = "{field.login.required}")
     private String login;
 

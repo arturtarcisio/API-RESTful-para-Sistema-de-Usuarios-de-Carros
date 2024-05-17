@@ -1,5 +1,6 @@
 package io.github.arturtcs.controller.exception;
 
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class ApplicationControllerAdvice {
     public ResponseEntity handleResponseStatusException(ResponseStatusException ex){
         String mensagemErro = ex.getReason();
         HttpStatusCode codigoStatus = ex.getStatusCode();
-        ApiErrors apiErrors = new ApiErrors(mensagemErro);
+        ApiErrors apiErrors = new ApiErrors(mensagemErro, codigoStatus);
         return new ResponseEntity(apiErrors, codigoStatus);
     }
 }

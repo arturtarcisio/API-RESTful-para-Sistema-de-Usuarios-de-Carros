@@ -1,7 +1,6 @@
 package io.github.arturtcs.service.impl;
 
 import io.github.arturtcs.model.Car;
-import io.github.arturtcs.model.User;
 import io.github.arturtcs.repository.CarRepository;
 import io.github.arturtcs.service.CarService;
 import io.github.arturtcs.service.TokenService;
@@ -23,16 +22,6 @@ public class CarServiceImpl implements CarService {
 
     @Autowired
     private TokenService tokenService;
-
-    @Override
-    public Car verifyCarExistBylicensePlate(String licensePlate) {
-        return carRepository.findBylicensePlate(licensePlate);
-    }
-
-    @Override
-    public Car saveCar(Car car) {
-        return carRepository.save(car);
-    }
 
     @Override
     public List<Car> returnAllCarsById(String token) {
@@ -103,15 +92,6 @@ public class CarServiceImpl implements CarService {
         return optionalCar.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Car not found"));
     }
 
-//    @Override
-//    private List<Car> verifyIfCarExistsAndRemoveFromList(List<Car> cars) {
-//        List<Car> filteredCars = cars.stream()
-//                .filter(car -> carRepository.findBylicensePlate(car.getLicensePlate()) == null)
-//                .collect(Collectors.toList());
-//
-//        return filteredCars;
-//    }
-
     private void verifyIfLicensePlateIsValid(Car car) {
         String regexLicensePlate = "^[A-Z]{3}-\\d{4}$";
         Pattern pattern = Pattern.compile(regexLicensePlate);
@@ -123,7 +103,7 @@ public class CarServiceImpl implements CarService {
     private void verifyIfCarExists(Car car) {
         car = carRepository.findBylicensePlate(car.getLicensePlate());
         if (car != null)
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "License plate already exists.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "License plate already exists");
     }
 
 
