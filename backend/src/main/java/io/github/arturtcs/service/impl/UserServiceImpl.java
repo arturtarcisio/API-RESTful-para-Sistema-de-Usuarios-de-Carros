@@ -118,17 +118,11 @@ public class UserServiceImpl implements UserService {
     }
 
     private void verifyIfEmailAlreadyExist(User user) {
-        User userReturned = userRepository.findByEmail(user.getEmail());
-        if (userReturned != null && !userReturned.getId().equals(user.getId())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email already exists");
-        }
+        userRepository.findByEmail(user.getEmail()).orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
     }
 
     private void verifyIfLoginAlreadyExist(User user) {
-        User userReturned = userRepository.findByLogin(user.getLogin());
-        if (userReturned != null && !userReturned.getId().equals(user.getId())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Login already exists");
-        }
+        userRepository.findByLogin(user.getLogin()).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Login already exists"));
     }
 
     private static void validateStringOnlyLetters(String value, String fieldName) {

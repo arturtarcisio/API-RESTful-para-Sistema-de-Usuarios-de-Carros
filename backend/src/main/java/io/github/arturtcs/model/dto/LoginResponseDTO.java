@@ -1,4 +1,6 @@
 package io.github.arturtcs.model.dto;
 
-public record LoginResponseDTO(String acessToken, Long expiresIn, String userLogged, String userEmail) {
+import java.time.Instant;
+
+public record LoginResponseDTO(String acessToken, Instant expiresIn, String userLogged, String userEmail) {
 }
