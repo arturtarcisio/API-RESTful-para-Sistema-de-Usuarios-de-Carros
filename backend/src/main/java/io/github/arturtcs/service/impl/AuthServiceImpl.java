@@ -16,6 +16,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.Instant;
+
+/**
+ * Service implementation for authentication-related operations.
+ */
 @Service
 public class AuthServiceImpl implements AuthService, UserDetailsService {
 
@@ -30,11 +35,24 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
 
     private AuthenticationManager authenticationManager;
 
+    /**
+     * Loads a user by username from the repository.
+     *
+     * @param login The username to search for.
+     * @return The user with the specified username.
+     * @throws UsernameNotFoundException If the user is not found.
+     */
     @Override
     public User loadUserByUsername(String login) throws UsernameNotFoundException {
         return userRepository.findByLogin(login).orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized"));
     }
 
+    /**
+     * Performs user authentication and generates a JWT token.
+     *
+     * @param loginRequestDTO The login request DTO containing login credentials.
+     * @return The login response DTO containing the JWT token and user information.
+     */
     @Override
     public LoginResponseDTO login(LoginRequestDTO loginRequestDTO) {
         authenticationManager = context.getBean(AuthenticationManager.class);
@@ -42,8 +60,20 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
         var auth = this.authenticationManager.authenticate(usernamePassword);
         var token = jwtService.generateToken((User) auth.getPrincipal());
         var user = loadUserByUsername(loginRequestDTO.login());
+        user.setLastLogin(Instant.now());
+        userRepository.save(user);
         return new LoginResponseDTO(token, jwtService.getExpirationDate(), user.getLogin(), user.getEmail());
     }
 
-
+    /**
+     * Finds the owner of the given JWT token.
+     *
+     * @param token The JWT token.
+     * @return The user who owns the token.
+     */
+    @Override
+    public User findTokenOwner(String token) {
+        var subject = jwtService.validateToken(token);
+        return userRepository.findByLogin(subject).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Token owner not found"));
+    }
 }

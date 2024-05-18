@@ -18,6 +18,9 @@ import org.springframework.web.filter.CorsFilter;
 
 import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 
+/**
+ * Configuration class for Spring Web Security.
+ */
 @Configuration
 @EnableWebSecurity
 public class WebConfigSecurity {
@@ -25,8 +28,15 @@ public class WebConfigSecurity {
     @Autowired
     SecurityFilter securityFilter;
 
+    /**
+     * Configures security filters and policies for HTTP requests.
+     *
+     * @param httpSecurity The HttpSecurity object to configure.
+     * @return A SecurityFilterChain object.
+     * @throws Exception If an error occurs during configuration.
+     */
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -40,25 +50,42 @@ public class WebConfigSecurity {
                 .build();
     }
 
+    /**
+     * Configures CORS (Cross-Origin Resource Sharing) filter.
+     *
+     * @return The configured CorsFilter.
+     */
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:4200"); // Origem do Angular
+        config.addAllowedOrigin("http://localhost:4200"); // Angular origin
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
 
+    /**
+     * Creates an AuthenticationManager bean.
+     *
+     * @param authenticationConfiguration The AuthenticationConfiguration object.
+     * @return The created AuthenticationManager.
+     * @throws Exception If an error occurs during creation.
+     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
+    /**
+     * Creates a BCryptPasswordEncoder bean.
+     *
+     * @return The created BCryptPasswordEncoder.
+     */
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

@@ -8,6 +8,9 @@ import lombok.*;
 
 import java.io.Serializable;
 
+/**
+ * Entity class representing a car.
+ */
 @Entity
 @Data
 @Table(name="TB_CAR")

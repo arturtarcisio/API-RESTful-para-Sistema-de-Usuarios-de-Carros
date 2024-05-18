@@ -4,7 +4,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.impl.ClaimsHolder;
 import io.github.arturtcs.model.User;
 import io.github.arturtcs.service.JwtService;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 
+/**
+ * Implementation of JwtService interface providing JWT (JSON Web Token) related operations.
+ */
 @Service
 public class JwtServiceImpl implements JwtService {
 
@@ -21,24 +23,34 @@ public class JwtServiceImpl implements JwtService {
     @Value("${jwt.expiration}")
     private Long expiresIn;
 
+    /**
+     * Generates a JWT token for the provided user.
+     *
+     * @param user The user for whom the token is generated.
+     * @return The generated JWT token.
+     * @throws RuntimeException if an error occurs during token generation.
+     */
     @Override
     public String generateToken(User user) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
 
-            String token = JWT.create()
+            return JWT.create()
                     .withIssuer("auth")
                     .withSubject(user.getLogin())
                     .withExpiresAt(getExpirationDate())
                     .sign(algorithm);
-            return token;
-
-
         } catch (JWTCreationException exception) {
             throw new RuntimeException("ERROR WHILE GENERATING TOKEN", exception);
         }
     }
 
+    /**
+     * Validates the provided JWT token and retrieves the subject (login) from it.
+     *
+     * @param token The JWT token to be validated.
+     * @return The subject (login) extracted from the token if valid, otherwise an empty string.
+     */
     @Override
     public String validateToken(String token) {
         try {
@@ -49,13 +61,16 @@ public class JwtServiceImpl implements JwtService {
                     .build()
                     .verify(token)
                     .getSubject();
-        }
-
-        catch (JWTVerificationException exception) {
+        } catch (JWTVerificationException exception) {
             return "";
         }
     }
 
+    /**
+     * Retrieves the expiration date of the JWT token.
+     *
+     * @return The expiration date of the JWT token.
+     */
     @Override
     public Instant getExpirationDate() {
         return Instant.now().plusSeconds(expiresIn);

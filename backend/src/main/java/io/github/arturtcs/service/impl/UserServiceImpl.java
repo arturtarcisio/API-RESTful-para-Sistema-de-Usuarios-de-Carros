@@ -18,6 +18,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
+/**
+ * Implementation of UserService interface providing user-related operations.
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -30,11 +33,23 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    /**
+     * Retrieves all users from the database.
+     *
+     * @return List of all users.
+     */
     @Override
     public List<User> showUsers() {
         return userRepository.findAll();
     }
 
+    /**
+     * Registers a new user in the system.
+     *
+     * @param user The user to be registered.
+     * @return The registered user.
+     * @throws ResponseStatusException if the user registration fails due to invalid data or existing user.
+     */
     @Override
     public User registerUser(User user) throws ResponseStatusException {
         validateStringOnlyLetters(user.getFirstName(), "firstName");
@@ -58,11 +73,23 @@ public class UserServiceImpl implements UserService {
         return userSaved;
     }
 
+    /**
+     * Finds a user by ID.
+     *
+     * @param id The ID of the user to find.
+     * @return An optional containing the user if found, otherwise empty.
+     */
     @Override
     public Optional<User> findUserById(Long id) {
         return userRepository.findById(id);
     }
 
+    /**
+     * Deletes a user by ID.
+     *
+     * @param id The ID of the user to delete.
+     * @throws ResponseStatusException if the user is not found.
+     */
     @Override
     public void deleteUser(Long id) {
         userRepository
@@ -74,6 +101,14 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found") );
     }
 
+    /**
+     * Updates a user's information.
+     *
+     * @param id          The ID of the user to update.
+     * @param userUpdated The updated user information.
+     * @return The updated user.
+     * @throws ResponseStatusException if the user is not found or update fails due to invalid data.
+     */
     @Override
     public User updateUser(Long id, User userUpdated) {
         return userRepository
