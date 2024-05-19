@@ -4,6 +4,7 @@ import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -34,5 +35,11 @@ public class ApplicationControllerAdvice {
         HttpStatusCode codigoStatus = ex.getStatusCode();
         ApiErrors apiErrors = new ApiErrors(mensagemErro, codigoStatus);
         return new ResponseEntity(apiErrors, codigoStatus);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity handleBadCredentialsException(BadCredentialsException ex){
+        ApiErrors apiErrors = new ApiErrors("Invalid login or password", HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity(apiErrors, HttpStatus.UNAUTHORIZED);
     }
 }
