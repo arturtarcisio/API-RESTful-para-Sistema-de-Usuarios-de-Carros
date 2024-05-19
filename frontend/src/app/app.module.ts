@@ -32,6 +32,7 @@ import { CarListComponent } from './components/car/car-list/car-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { ToastrModule } from 'ngx-toastr';
 import { timeout } from 'rxjs';
+import { AboutComponent } from './components/about/about.component';
 
 
 
@@ -42,7 +43,8 @@ import { timeout } from 'rxjs';
     HomeComponent,
     HeaderComponent,
     CarListComponent,
-    LoginComponent
+    LoginComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
