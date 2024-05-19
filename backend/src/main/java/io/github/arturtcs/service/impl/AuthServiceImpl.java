@@ -6,6 +6,8 @@ import io.github.arturtcs.model.dto.LoginResponseDTO;
 import io.github.arturtcs.repository.UserRepository;
 import io.github.arturtcs.service.AuthService;
 import io.github.arturtcs.service.JwtService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,8 @@ import java.time.Instant;
  */
 @Service
 public class AuthServiceImpl implements AuthService, UserDetailsService {
+
+    private static final Logger log = LoggerFactory.getLogger(AuthServiceImpl.class);
 
     @Autowired
     private ApplicationContext context;
@@ -74,6 +78,13 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
     @Override
     public User findTokenOwner(String token) {
         var subject = jwtService.validateToken(token);
-        return userRepository.findByLogin(subject).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Token owner not found"));
+        if (subject == null || subject.isEmpty()) {
+            log.warn("Token validation failed for token: {}", token);
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized");
+        }
+        return userRepository.findByLogin(subject).orElseThrow(() -> {
+            log.warn("No user found for token: {}", token);
+            return new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized");
+        });
     }
 }

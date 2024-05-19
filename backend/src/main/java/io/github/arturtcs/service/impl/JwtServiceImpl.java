@@ -6,8 +6,12 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import io.github.arturtcs.model.User;
 import io.github.arturtcs.service.JwtService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Instant;
 
@@ -16,6 +20,8 @@ import java.time.Instant;
  */
 @Service
 public class JwtServiceImpl implements JwtService {
+
+    private static final Logger log = LoggerFactory.getLogger(JwtServiceImpl.class);
 
     @Value("${jwt.secret}")
     private String secret;
@@ -62,9 +68,11 @@ public class JwtServiceImpl implements JwtService {
                     .verify(token)
                     .getSubject();
         } catch (JWTVerificationException exception) {
-            return "";
+            log.error("Invalid token: {}", token, exception);
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid token", exception);
         }
     }
+
 
     /**
      * Retrieves the expiration date of the JWT token.

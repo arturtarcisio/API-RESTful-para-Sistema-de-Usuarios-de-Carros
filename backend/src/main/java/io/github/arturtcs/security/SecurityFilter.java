@@ -43,11 +43,13 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         if (token != null) {
             var login = jwtService.validateToken(token);
-            Optional<User> user = userRepository.findByLogin(login);
+            if (login != null && !login.isEmpty()) {
+                Optional<User> user = userRepository.findByLogin(login);
 
-            if (user.isPresent()) {
-                var authentication = new UsernamePasswordAuthenticationToken(user, null, user.get().getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                if (user.isPresent()) {
+                    var authentication = new UsernamePasswordAuthenticationToken(user, null, user.get().getAuthorities());
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
             }
         }
         filterChain.doFilter(request, response);

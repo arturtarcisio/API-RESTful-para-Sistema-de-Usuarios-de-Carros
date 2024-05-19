@@ -40,7 +40,7 @@ public class AuthController {
      * @return ResponseEntity containing information about the authenticated user.
      */
     @Operation(description = "Sign In")
-    @PostMapping("/me")
+    @GetMapping("/me")
     public ResponseEntity<UserTokenDTO> infoAboutUserLogger (@RequestHeader("Authorization") String token) {
         var infoUser = authService.findTokenOwner(token);
         var userTokenDTO = UserTokenDTO.builder()
