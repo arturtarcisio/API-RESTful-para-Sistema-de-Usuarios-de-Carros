@@ -5,18 +5,28 @@
        
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Login</mat-label>
-          <input matInput placeholder="Login">
+          <input 
+            [formControl]="login"
+            [(ngModel)]="loginRequest.login" 
+            name="login" 
+            matInput 
+            placeholder="Login">
           <mat-icon matSuffix>login</mat-icon>
        </mat-form-field>
  
        <mat-form-field class="full-width" appearance="outline">
           <mat-label>Password</mat-label>
-          <input type="password" matInput placeholder="*********">
+          <input 
+            [formControl]="password"
+            required
+            [(ngModel)]="loginRequest.password" 
+            name="password" 
+            type="password" 
+            matInput placeholder="*********">
           <mat-icon matSuffix>password</mat-icon>
        </mat-form-field>
  
-    <button class="full-width mat-elevation-z8" mat-stroked-button color="primary">Login</button>
-       
+    <button [disabled]="!validaCampos()" class="full-width mat-elevation-z8" mat-stroked-button color="primary">Login</button>
     </form>
  
  </div>
