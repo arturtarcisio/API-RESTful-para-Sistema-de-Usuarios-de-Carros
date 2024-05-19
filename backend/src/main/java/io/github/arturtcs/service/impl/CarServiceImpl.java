@@ -80,13 +80,6 @@ public class CarServiceImpl implements CarService {
         }
     }
 
-    /**
-     * Update a car.
-     *
-     * @param token Token of user logged
-     * @param id Id of car will deleted
-     * @param car Car updated
-     */
     @Override
     public void updateCarUserLogged(String token, Long id, Car car) {
         var user = authService.findTokenOwner(token);
@@ -96,8 +89,12 @@ public class CarServiceImpl implements CarService {
 
         Car existingCar = optionalCar.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Car not found"));
 
-        verifyIfCarExists(car);
         verifyIfLicensePlateIsValid(car);
+
+        Car carWithNewLicensePlate = carRepository.findBylicensePlate(car.getLicensePlate());
+        if (carWithNewLicensePlate != null && !carWithNewLicensePlate.getUserOwner().equals(user)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "License plate already exists");
+        }
 
         existingCar.setCarYear(car.getCarYear());
         existingCar.setColor(car.getColor());
