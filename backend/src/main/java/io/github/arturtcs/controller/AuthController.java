@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class AuthController {
 
+    private final static String TYPE_TOKEN = "Bearer ";
+
     @Autowired
     private AuthService authService;
 
@@ -42,7 +44,7 @@ public class AuthController {
     @Operation(description = "Sign In")
     @GetMapping("/me")
     public ResponseEntity<UserTokenDTO> infoAboutUserLogger (@RequestHeader("Authorization") String token) {
-        var infoUser = authService.findTokenOwner(token);
+        var infoUser = authService.findTokenOwner(token.replace(TYPE_TOKEN, ""));
         var userTokenDTO = UserTokenDTO.builder()
                 .firstName(infoUser.getFirstName())
                 .lastName(infoUser.getLastName())
