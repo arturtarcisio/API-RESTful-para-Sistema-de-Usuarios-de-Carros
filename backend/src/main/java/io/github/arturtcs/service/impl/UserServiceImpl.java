@@ -56,8 +56,8 @@ public class UserServiceImpl implements UserService {
         validateStringOnlyLetters(user.getLastName(), "lastName");
         validateEmail(user.getEmail());
         validatePhone(user.getPhone());
-        verifyIfEmailAlreadyExist(user);
-        verifyIfLoginAlreadyExist(user);
+        verifyIfEmailAlreadyExist(user.getEmail());
+        verifyIfLoginAlreadyExist(user.getLogin());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setCreatedAt(Instant.now());
         List<Car> cars = user.getCars();
@@ -113,7 +113,7 @@ public class UserServiceImpl implements UserService {
     public User updateUser(Long id, User userUpdated) {
         return userRepository
                 .findById(id)
-                .map( user -> {
+                .map(user -> {
                     userUpdated.setId(user.getId());
                     validateStringOnlyLetters(userUpdated.getFirstName(), "firstName");
                     user.setFirstName(userUpdated.getFirstName());
@@ -122,16 +122,17 @@ public class UserServiceImpl implements UserService {
                     user.setLastName(userUpdated.getLastName());
 
                     validateEmail(userUpdated.getEmail());
-                    verifyIfEmailAlreadyExist(userUpdated);
+                    verifyIfEmailAlreadyExistForOtherUser(userUpdated.getEmail(), id);
                     user.setEmail(userUpdated.getEmail());
 
-                    verifyIfLoginAlreadyExist(userUpdated);
+                    verifyIfLoginAlreadyExistForOtherUser(userUpdated.getLogin(), id);
                     user.setLogin(userUpdated.getLogin());
 
                     user.setPassword(passwordEncoder.encode(userUpdated.getPassword()));
 
                     validatePhone(userUpdated.getPhone());
                     user.setPhone(userUpdated.getPhone());
+
                     user.getCars().removeAll(user.getCars());
                     var userSaved = userRepository.save(user);
 
@@ -149,15 +150,38 @@ public class UserServiceImpl implements UserService {
 
                     return userSaved;
                 })
-                .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
     }
 
-    private void verifyIfEmailAlreadyExist(User user) {
-        userRepository.findByEmail(user.getEmail()).orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+    private void verifyIfEmailAlreadyExistForOtherUser(String email, Long userId) {
+        userRepository.findByEmail(email)
+                .ifPresent(existingUser -> {
+                    if (!existingUser.getId().equals(userId)) {
+                        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email already exists for another user");
+                    }
+                });
     }
 
-    private void verifyIfLoginAlreadyExist(User user) {
-        userRepository.findByLogin(user.getLogin()).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Login already exists"));
+    private void verifyIfLoginAlreadyExistForOtherUser(String login, Long userId) {
+        userRepository.findByLogin(login)
+                .ifPresent(existingUser -> {
+                    if (!existingUser.getId().equals(userId)) {
+                        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Login already exists for another user");
+                    }
+                });
+    }
+
+    private void verifyIfEmailAlreadyExist(String email) {
+        var emailExists = userRepository.findByEmail(email);
+        if(emailExists.isPresent())
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email already exists");
+    }
+
+    private void verifyIfLoginAlreadyExist(String login) {
+        var loginExists = userRepository.findByLogin(login);
+        if(loginExists.isPresent())
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Login already exists");
     }
 
     private static void validateStringOnlyLetters(String value, String fieldName) {
