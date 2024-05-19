@@ -29,6 +29,7 @@ import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CarListComponent } from './components/car/car-list/car-list.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 
@@ -38,7 +39,8 @@ import { CarListComponent } from './components/car/car-list/car-list.component';
     NavComponent,
     HomeComponent,
     HeaderComponent,
-    CarListComponent
+    CarListComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
