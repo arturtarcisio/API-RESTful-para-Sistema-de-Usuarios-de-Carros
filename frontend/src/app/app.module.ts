@@ -28,6 +28,7 @@ import { MatCardModule } from '@angular/material/card';
 import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
+import { CarListComponent } from './components/car/car-list/car-list.component';
 
 
 
@@ -36,7 +37,8 @@ import { HeaderComponent } from './components/header/header.component';
     AppComponent,
     NavComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    CarListComponent
   ],
   imports: [
     BrowserModule,
