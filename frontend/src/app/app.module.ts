@@ -39,6 +39,7 @@ import { CarUpdateComponent } from './components/car/car-update/car-update.compo
 import { InfouserComponent } from './components/infouser/infouser.component';
 import { CarDeleteComponent } from './components/car/car-delete/car-delete.component';
 import { UserListComponent } from './components/user/user-list/user-list.component';
+import { UserCreateComponent } from './components/user/user-create/user-create.component';
 
 
 
@@ -55,7 +56,8 @@ import { UserListComponent } from './components/user/user-list/user-list.compone
     CarUpdateComponent,
     InfouserComponent,
     CarDeleteComponent,
-    UserListComponent
+    UserListComponent,
+    UserCreateComponent
   ],
   imports: [
     BrowserModule,

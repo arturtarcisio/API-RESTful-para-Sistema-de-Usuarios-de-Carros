@@ -11,6 +11,7 @@ import { CarUpdateComponent } from './components/car/car-update/car-update.compo
 import { InfouserComponent } from './components/infouser/infouser.component';
 import { CarDeleteComponent } from './components/car/car-delete/car-delete.component';
 import { UserListComponent } from './components/user/user-list/user-list.component';
+import { UserCreateComponent } from './components/user/user-create/user-create.component';
 
 const routes: Routes = [
   { path:'login', component: LoginComponent},
@@ -25,7 +26,7 @@ const routes: Routes = [
       { path:'cars/delete/:id', component: CarDeleteComponent },  
       
       { path:'users', component: UserListComponent},
-      { path:'users/create', component: CarCreateComponent },
+      { path:'users/create', component: UserCreateComponent },
       { path:'users/update/:id', component: CarUpdateComponent },    
       { path:'users/delete/:id', component: CarDeleteComponent }, 
       
