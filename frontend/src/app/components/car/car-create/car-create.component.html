@@ -46,8 +46,8 @@
         placeholder="Blue">
     </mat-form-field>
 
-    <button class="fullWidth mat-elevation-z6" mat-flat-button color="primary">Register</button>
-    <button class="fullWidth mat-elevation-z6" mat-stroked-button color="warn">Cancel</button>
+    <button (click)="create()" [disabled]="!validaCampos()" class="fullWidth mat-elevation-z6" mat-flat-button color="primary">Register</button>
+    <button routerLink="../" class="fullWidth mat-elevation-z6" mat-stroked-button color="warn">Cancel</button>
 
     
 </div>

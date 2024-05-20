@@ -26,13 +26,37 @@ export class CarCreateComponent implements OnInit{
   color: FormControl = new FormControl(null, Validators.minLength(3));
   
   constructor(
-    private service:  CarService,
+    private carService:  CarService,
     private toast:    ToastrService,
     private router:   Router,
   ){}
 
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
+  ngOnInit(): void {  }
+
+  validaCampos(): boolean {
+    return this.carYear.valid && this.licensePlate.valid
+     && this.model.valid && this.color.valid
   }
+
+  create(): void {
+    this.carService.create(this.car).subscribe(() => {
+      this.toast.success('Car registered successfully', 'Register');
+      this.router.navigate(['cars']);
+    }, ex => {
+      if (ex.error.errors) {
+        ex.error.errors.forEach(element => {
+          this.toast.error(this.extractMessage(element), 'Error');
+        });
+      } else {
+        this.toast.error(ex.error.message, 'Error');
+      }
+    });
+  }
+  
+  extractMessage(element: any): string {
+    const match = element.match(/Message: (.*) errorCode/);
+    return match ? match[1] : 'An unknown error occurred';
+  }
+  
 
 }
