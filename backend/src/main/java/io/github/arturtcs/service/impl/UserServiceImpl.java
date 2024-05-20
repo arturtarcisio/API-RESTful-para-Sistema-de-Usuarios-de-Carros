@@ -134,22 +134,7 @@ public class UserServiceImpl implements UserService {
                     validatePhone(userUpdated.getPhone());
                     user.setPhone(userUpdated.getPhone());
 
-                    user.getCars().removeAll(user.getCars());
-                    var userSaved = userRepository.save(user);
-
-                    if( !userUpdated.getCars().isEmpty() ){
-                        userUpdated.getCars().forEach( car -> {
-                            car.setUserOwner(userSaved);
-                            if (StringUtils.isEmpty(car.getLicensePlate()))
-                                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Missing field: License plate");
-
-                            if (StringUtils.isEmpty(car.getModel()))
-                                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Missing field: Car model");
-                            carService.registerCarUser(car);
-                        });
-                    }
-
-                    return userSaved;
+                    return userRepository.save(user);
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
     }
