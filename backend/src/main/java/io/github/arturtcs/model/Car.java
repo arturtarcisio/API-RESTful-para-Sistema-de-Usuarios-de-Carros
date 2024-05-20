@@ -38,6 +38,6 @@ public class Car implements Serializable {
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name="users", nullable = false)
+    @JoinColumn(name="users")
     private User userOwner;
 }

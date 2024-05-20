@@ -44,8 +44,7 @@ public class User implements UserDetails {
     @NotEmpty(message = "{field.email.required}")
     private String email;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate birthday;
+    private Date birthday;
 
     @Column(nullable = false, length = 50)
     @NotEmpty(message = "{field.login.required}")

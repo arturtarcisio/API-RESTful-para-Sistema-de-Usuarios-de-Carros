@@ -61,17 +61,14 @@ public class UserServiceImpl implements UserService {
         verifyIfLoginAlreadyExist(user.getLogin());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setCreatedAt(LocalDate.now());
-        List<Car> cars = user.getCars();
-        user.setCars(new ArrayList<>());
-        User userSaved = userRepository.save(user);
-        if (cars != null && !cars.isEmpty()) {
-            cars.forEach(car -> {
-                car.setUserOwner(userSaved);
+
+        if(!user.getCars().isEmpty()){
+            user.getCars().forEach( car -> {
                 carService.registerCarUser(car);
-                userSaved.getCars().add(car);
             });
         }
-        return userSaved;
+
+        return userRepository.save(user);
     }
 
     /**
