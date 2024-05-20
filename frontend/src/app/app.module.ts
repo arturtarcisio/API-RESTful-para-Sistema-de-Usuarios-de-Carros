@@ -36,6 +36,7 @@ import { AboutComponent } from './components/about/about.component';
 import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 import { CarCreateComponent } from './components/car/car-create/car-create.component';
 import { CarUpdateComponent } from './components/car/car-update/car-update.component';
+import { InfouserComponent } from './components/infouser/infouser.component';
 
 
 
@@ -49,7 +50,8 @@ import { CarUpdateComponent } from './components/car/car-update/car-update.compo
     LoginComponent,
     AboutComponent,
     CarCreateComponent,
-    CarUpdateComponent
+    CarUpdateComponent,
+    InfouserComponent
   ],
   imports: [
     BrowserModule,

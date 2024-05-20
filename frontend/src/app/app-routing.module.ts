@@ -8,12 +8,14 @@ import { AboutComponent } from './components/about/about.component';
 import { AuthGuard } from './auth/auth.guard';
 import { CarCreateComponent } from './components/car/car-create/car-create.component';
 import { CarUpdateComponent } from './components/car/car-update/car-update.component';
+import { InfouserComponent } from './components/infouser/infouser.component';
 
 const routes: Routes = [
   { path:'login', component: LoginComponent},
   {
     path:'', component: NavComponent, canActivate:[AuthGuard], children:[
       { path:'home', component: HomeComponent },
+      { path:'me', component: InfouserComponent },
       
       { path:'cars', component: CarListComponent },
       { path:'cars/create', component: CarCreateComponent },
