@@ -46,24 +46,44 @@ export class UserUpdateComponent implements OnInit{
 
   findById(): void {
     this.userService.findById(this.user.id).subscribe(response => {
-      this.user = response;
-    })
+        const dateISO = response.birthday;
+
+        const date = new Date(dateISO);
+
+        const day = ('0' + date.getDate()).slice(-2);
+        const month = ('0' + (date.getMonth() + 1)).slice(-2); 
+        const year = date.getFullYear();
+
+        const formattedDate = `${day}/${month}/${year}`;
+
+        this.user = response;
+        this.user.birthday = formattedDate;
+    });
+}
+
+update(): void {
+  if (typeof this.user.birthday === 'string') {
+    const parts = this.user.birthday.split('/');
+    const birthdayDate = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
+    
+    const formattedBirthday = `${birthdayDate.getFullYear()}-${('0' + (birthdayDate.getMonth() + 1)).slice(-2)}-${('0' + birthdayDate.getDate()).slice(-2)}`;
+
+    this.user.birthday = formattedBirthday;
   }
 
-  update(): void {
-    this.userService.update(this.user).subscribe(() => {
-      this.toast.success('User updated successfully', 'Update');
-      this.router.navigate(['users']);
-    }, ex => {
-      if (ex.error.errors) {
-        ex.error.errors.forEach(element => {
-          this.toast.error(this.extractMessage(element), 'Error');
-        });
-      } else {
-        this.toast.error(ex.error.message, 'Error');
-      }
-    });
-  }
+  this.userService.update(this.user).subscribe(() => {
+    this.toast.success('User updated successfully', 'Update');
+    this.router.navigate(['users']);
+  }, ex => {
+    if (ex.error.errors) {
+      ex.error.errors.forEach((element: any) => {
+        this.toast.error(this.extractMessage(element), 'Error');
+      });
+    } else {
+      this.toast.error(ex.error.message, 'Error');
+    }
+  });
+}
   
   extractMessage(element: any): string {
     const match = element.match(/Message: (.*) errorCode/);
