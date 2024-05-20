@@ -14,9 +14,11 @@ import { UserListComponent } from './components/user/user-list/user-list.compone
 import { UserCreateComponent } from './components/user/user-create/user-create.component';
 import { UserDeleteComponent } from './components/user/user-delete/user-delete.component';
 import { UserUpdateComponent } from './components/user/user-update/user-update.component';
+import { CreateAccComponent } from './components/create-acc/create-acc.component';
 
 const routes: Routes = [
   { path:'login', component: LoginComponent},
+  { path:'register', component: CreateAccComponent},
   {
     path:'', component: NavComponent, canActivate:[AuthGuard], children:[
       { path:'home', component: HomeComponent },

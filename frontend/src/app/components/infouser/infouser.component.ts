@@ -16,12 +16,12 @@ export class InfouserComponent implements OnInit {
     firstName: '',
     lastName: '',
     email: '',
-    birthday: null,
+    birthday: '',
     login: '',
     phone: '',
     cars: [],
-    createAt: null,
-    lastLogin: null
+    createAt: '',
+    lastLogin: ''
   };
 
   displayedUserColumns: string[] = ['firstName', 'lastName', 'email', 'birthday', 'login', 'phone', 'createdAt', 'lastLogin'];
