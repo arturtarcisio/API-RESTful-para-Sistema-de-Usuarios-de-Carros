@@ -1,0 +1,74 @@
+<div class="container mat-elevation-z8">
+    <form class="form">
+        <h1 class="fullWidth">Delete a user</h1>
+    </form>
+
+    <mat-form-field class="fullWidth">
+        <mat-label>First name</mat-label>
+        <input 
+        [(ngModel)]="user.firstName"
+        name="firstName"
+        [disabled]="true"
+        matInput >
+    </mat-form-field>
+
+    <mat-form-field class="fullWidth">
+        <mat-label>Last name</mat-label>
+        <input 
+        [(ngModel)]="user.lastName"
+        name="lastName"
+        [disabled]="true"
+        matInput >
+    </mat-form-field>
+
+    <mat-form-field class="fullWidth">
+        <mat-label>Email</mat-label>
+        <input 
+        [(ngModel)]="user.email"
+        name="email"
+        [disabled]="true"
+        matInput >
+    </mat-form-field>
+
+    <mat-form-field class="fullWidth">
+        <mat-label>Birthday</mat-label>
+        <input 
+        [(ngModel)]="user.birthday"
+        name="birthday"
+        [disabled]="true"
+        matInput >
+    </mat-form-field>
+
+    <mat-form-field class="fullWidth">
+        <mat-label>Login</mat-label>
+        <input 
+        [(ngModel)]="user.login"
+        name="login"
+        [disabled]="true"
+        matInput >
+    </mat-form-field>
+
+    <mat-form-field class="fullWidth">
+        <mat-label>Password</mat-label>
+        <input 
+        type="password"
+        [disabled]="true"
+        [(ngModel)]="user.password"
+        name="password"
+        matInput >
+    </mat-form-field>
+
+    <mat-form-field class="fullWidth">
+        <mat-label>Phone</mat-label>
+        <input 
+        [(ngModel)]="user.phone"
+        [disabled]="true"
+        name="phone"
+        matInput >
+    </mat-form-field>
+
+    <button (click)="delete()" class="fullWidth mat-elevation-z6" mat-flat-button color="primary">Delete</button>
+    <button routerLink="../" class="fullWidth mat-elevation-z6" mat-stroked-button color="warn">Cancel</button>
+
+    
+</div>

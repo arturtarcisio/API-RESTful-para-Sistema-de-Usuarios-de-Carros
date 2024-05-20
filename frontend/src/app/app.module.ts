@@ -40,6 +40,7 @@ import { InfouserComponent } from './components/infouser/infouser.component';
 import { CarDeleteComponent } from './components/car/car-delete/car-delete.component';
 import { UserListComponent } from './components/user/user-list/user-list.component';
 import { UserCreateComponent } from './components/user/user-create/user-create.component';
+import { UserDeleteComponent } from './components/user/user-delete/user-delete.component';
 
 
 
@@ -57,7 +58,8 @@ import { UserCreateComponent } from './components/user/user-create/user-create.c
     InfouserComponent,
     CarDeleteComponent,
     UserListComponent,
-    UserCreateComponent
+    UserCreateComponent,
+    UserDeleteComponent
   ],
   imports: [
     BrowserModule,

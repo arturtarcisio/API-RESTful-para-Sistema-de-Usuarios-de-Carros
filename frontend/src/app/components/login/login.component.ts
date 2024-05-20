@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit{
       const accessToken = responseBody.acessToken;
       if (accessToken) {
         this.authService.successFulLogin(accessToken);
-        this.router.navigate(['']);
+        this.router.navigate(['home']);
       } else {
         this.toast.error('No access token received.');
       }
