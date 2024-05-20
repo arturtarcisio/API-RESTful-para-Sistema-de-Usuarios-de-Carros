@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Car } from '../../../model/car';
+import { CarService } from '../../../services/car.service';
 
 @Component({
   selector: 'app-car-list',
@@ -10,28 +11,33 @@ import { Car } from '../../../model/car';
 })
 export class CarListComponent implements OnInit{
 
-  ELEMENT_DATA: Car[] = [
-    {
-      id: 1,
-      year: '19/05/2024',
-      licensePlate: 'AAA-A3AA',
-      model: 'GOL',
-      color: 'BLUE'
-    }
-  ]
+  ELEMENT_DATA: Car[] = []
 
-  displayedColumns: string[] = ['id', 'year', 'licensePlate', 'model', 'color', 'actions'];
+  displayedColumns: string[] = ['id', 'carYear', 'licensePlate', 'model', 'color', 'actions'];
   dataSource = new MatTableDataSource<Car>(this.ELEMENT_DATA);
-  
-  constructor(){}
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  constructor(
+      private carService: CarService
+  ){}  
+
   ngOnInit(): void {
+    this.findAll()
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+  findAll(){
+    this.carService.findAll().subscribe(response => {
+      this.ELEMENT_DATA = response
+      this.dataSource = new MatTableDataSource<Car>(this.ELEMENT_DATA)
+      this.dataSource.paginator = this.paginator
+      console.log(this.ELEMENT_DATA)
+    })
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }
