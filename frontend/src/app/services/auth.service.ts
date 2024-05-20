@@ -5,6 +5,7 @@ import { API_CONFIG } from '../config/api.config';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from '../model/user';
 import { Observable } from 'rxjs';
+import { UserInfo } from '../model/userInfo';
 
 @Injectable({
   providedIn: 'root'
@@ -43,10 +44,10 @@ export class AuthService {
   logout() {
     localStorage.clear()
   }
-/*
-  infoAboutUser(user: User): Observable<User>{
-      return this.http.get<User>(`${API_CONFIG.baseUrl}/me`)
-    } */
+
+  infoAboutUser(): Observable<UserInfo>{
+      return this.http.get<UserInfo>(`${API_CONFIG.baseUrl}/me`)
+    } 
 
 }
 

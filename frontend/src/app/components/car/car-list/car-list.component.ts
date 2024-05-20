@@ -31,7 +31,6 @@ export class CarListComponent implements OnInit{
       this.ELEMENT_DATA = response
       this.dataSource = new MatTableDataSource<Car>(this.ELEMENT_DATA)
       this.dataSource.paginator = this.paginator
-      console.log(this.ELEMENT_DATA)
     })
   }
 
