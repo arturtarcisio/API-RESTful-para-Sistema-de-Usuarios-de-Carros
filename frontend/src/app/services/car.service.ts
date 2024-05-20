@@ -26,4 +26,8 @@ export class CarService {
   update(car: Car): Observable<Car> {
     return this.http.put<Car>(`${API_CONFIG.baseUrl}/cars/${car.id}`, car)
   }
+
+  deleteById(id: any): Observable<Car>{
+    return this.http.delete<Car>(`${API_CONFIG.baseUrl}/cars/${id}`)
+  }
 }

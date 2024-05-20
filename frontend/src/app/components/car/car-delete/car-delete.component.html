@@ -1,1 +1,48 @@
-<p>car-delete works!</p>
+<div class="container mat-elevation-z8">
+    <form class="form">
+        <h1 class="fullWidth">Update a car</h1>
+        <img class="fullWidth" src="../../../../assets/carAdd.svg" alt="Image add car">
+    </form>
+
+    <mat-form-field class="fullWidth">
+        <mat-label>Year</mat-label>
+        <input 
+        [(ngModel)]="car.carYear"
+        name="carYear"
+        matInput 
+        [disabled]="true">
+    </mat-form-field>
+
+    <mat-form-field class="fullWidth">
+        <mat-label>License Plate</mat-label>
+        <input 
+        [(ngModel)]="car.licensePlate"
+        name="licensePlate"
+        required
+        matInput 
+        [disabled]="true">
+    </mat-form-field>
+
+    <mat-form-field class="fullWidth">
+        <mat-label>Model</mat-label>
+        <input 
+        [(ngModel)]="car.model"
+        name="model"
+        matInput 
+        [disabled]="true">
+    </mat-form-field>
+
+    <mat-form-field class="fullWidth">
+        <mat-label>Color</mat-label>
+        <input 
+        [(ngModel)]="car.color"
+        name="color"
+        matInput 
+        [disabled]="true">
+    </mat-form-field>
+
+    <button (click)="delete()" class="fullWidth mat-elevation-z6" mat-flat-button color="primary">Delete</button>
+    <button routerLink="../../" class="fullWidth mat-elevation-z6" mat-stroked-button color="warn">Cancel</button>
+
+    
+</div>
