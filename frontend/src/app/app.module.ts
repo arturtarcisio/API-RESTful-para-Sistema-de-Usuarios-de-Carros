@@ -35,6 +35,7 @@ import { timeout } from 'rxjs';
 import { AboutComponent } from './components/about/about.component';
 import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 import { CarCreateComponent } from './components/car/car-create/car-create.component';
+import { CarUpdateComponent } from './components/car/car-update/car-update.component';
 
 
 
@@ -47,7 +48,8 @@ import { CarCreateComponent } from './components/car/car-create/car-create.compo
     CarListComponent,
     LoginComponent,
     AboutComponent,
-    CarCreateComponent
+    CarCreateComponent,
+    CarUpdateComponent
   ],
   imports: [
     BrowserModule,
