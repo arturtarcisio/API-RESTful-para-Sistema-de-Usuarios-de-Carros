@@ -1,0 +1,83 @@
+<div class="container mat-elevation-z8">
+    <form class="form">
+        <h1 class="fullWidth">Update a user</h1>
+    </form>
+
+    <mat-form-field class="fullWidth">
+        <mat-label>First name</mat-label>
+        <input 
+        [(ngModel)]="user.firstName"
+        name="firstName"
+        [formControl]="firstName"
+        matInput 
+        required
+        placeholder="Fulano">
+    </mat-form-field>
+
+    <mat-form-field class="fullWidth">
+        <mat-label>Last name</mat-label>
+        <input 
+        [(ngModel)]="user.lastName"
+        name="lastName"
+        matInput 
+        placeholder="Cicrano">
+    </mat-form-field>
+
+    <mat-form-field class="fullWidth">
+        <mat-label>Email</mat-label>
+        <input 
+        [(ngModel)]="user.email"
+        name="email"
+        [formControl]="email"
+        matInput 
+        required
+        placeholder="fulano@email.com">
+    </mat-form-field>
+
+    <mat-form-field class="fullWidth">
+        <mat-label>Birthday</mat-label>
+        <input 
+        [(ngModel)]="user.birthday"
+        name="birthday"
+        matInput 
+        placeholder="14/01/1993">
+    </mat-form-field>
+
+    <mat-form-field class="fullWidth">
+        <mat-label>Login</mat-label>
+        <input 
+        [(ngModel)]="user.login"
+        name="login"
+        [formControl]="login"
+        matInput 
+        required
+        placeholder="atcs">
+    </mat-form-field>
+
+    <mat-form-field class="fullWidth">
+        <mat-label>Password</mat-label>
+        <input 
+        type="password"
+        [(ngModel)]="user.password"
+        name="password"
+        [formControl]="password"
+        matInput 
+        required
+        placeholder="*****">
+    </mat-form-field>
+
+    <mat-form-field class="fullWidth">
+        <mat-label>Phone</mat-label>
+        <input 
+        [(ngModel)]="user.phone"
+        name="phone"
+        matInput 
+        required
+        placeholder="81983350000">
+    </mat-form-field>
+
+    <button (click)="update()" [disabled]="!validaCampos()" class="fullWidth mat-elevation-z6" mat-flat-button color="primary">Register</button>
+    <button routerLink="../" class="fullWidth mat-elevation-z6" mat-stroked-button color="warn">Cancel</button>
+
+    
+</div>

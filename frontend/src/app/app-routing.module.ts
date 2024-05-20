@@ -13,6 +13,7 @@ import { CarDeleteComponent } from './components/car/car-delete/car-delete.compo
 import { UserListComponent } from './components/user/user-list/user-list.component';
 import { UserCreateComponent } from './components/user/user-create/user-create.component';
 import { UserDeleteComponent } from './components/user/user-delete/user-delete.component';
+import { UserUpdateComponent } from './components/user/user-update/user-update.component';
 
 const routes: Routes = [
   { path:'login', component: LoginComponent},
@@ -28,7 +29,7 @@ const routes: Routes = [
       
       { path:'users', component: UserListComponent},
       { path:'users/create', component: UserCreateComponent },
-      { path:'users/update/:id', component:  UserCreateComponent},    
+      { path:'users/update/:id', component:  UserUpdateComponent},    
       { path:'users/delete/:id', component: UserDeleteComponent }, 
       
       {path: 'about', component: AboutComponent}
