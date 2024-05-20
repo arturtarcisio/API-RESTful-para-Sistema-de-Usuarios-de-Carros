@@ -34,6 +34,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { timeout } from 'rxjs';
 import { AboutComponent } from './components/about/about.component';
 import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
+import { CarCreateComponent } from './components/car/car-create/car-create.component';
 
 
 
@@ -45,7 +46,8 @@ import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
     HeaderComponent,
     CarListComponent,
     LoginComponent,
-    AboutComponent
+    AboutComponent,
+    CarCreateComponent
   ],
   imports: [
     BrowserModule,

@@ -6,13 +6,17 @@ import { CarListComponent } from './components/car/car-list/car-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { AboutComponent } from './components/about/about.component';
 import { AuthGuard } from './auth/auth.guard';
+import { CarCreateComponent } from './components/car/car-create/car-create.component';
 
 const routes: Routes = [
   { path:'login', component: LoginComponent},
   {
     path:'', component: NavComponent, canActivate:[AuthGuard], children:[
       { path:'home', component: HomeComponent },
+      
       { path:'cars', component: CarListComponent },
+      { path:'cars/create', component: CarCreateComponent },      
+      
       {path: 'about', component: AboutComponent}
     ]
   }
