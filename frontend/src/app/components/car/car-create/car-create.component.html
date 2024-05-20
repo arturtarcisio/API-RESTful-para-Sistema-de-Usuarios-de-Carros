@@ -1,1 +1,53 @@
-<p>car-create works!</p>
+<div class="container mat-elevation-z8">
+    <form class="form">
+        <h1 class="fullWidth">Register a car</h1>
+        <img class="fullWidth" src="../../../../assets/carAdd.svg" alt="Image add car">
+    </form>
+
+    <mat-form-field class="fullWidth">
+        <mat-label>Year</mat-label>
+        <input 
+        [(ngModel)]="car.carYear"
+        name="carYear"
+        [formControl]="carYear"
+        matInput 
+        placeholder="1990">
+    </mat-form-field>
+
+    <mat-form-field class="fullWidth">
+        <mat-label>License Plate</mat-label>
+        <input 
+        [(ngModel)]="car.licensePlate"
+        name="licensePlate"
+        [formControl]="licensePlate"
+        required
+        matInput 
+        placeholder="XXX-0000 or XXX-0X00">
+    </mat-form-field>
+
+    <mat-form-field class="fullWidth">
+        <mat-label>Model</mat-label>
+        <input 
+        [(ngModel)]="car.model"
+        name="model"
+        [formControl]="model"
+        required
+        matInput 
+        placeholder="Fusca">
+    </mat-form-field>
+
+    <mat-form-field class="fullWidth">
+        <mat-label>Color</mat-label>
+        <input 
+        [(ngModel)]="car.color"
+        name="color"
+        [formControl]="color"
+        matInput 
+        placeholder="Blue">
+    </mat-form-field>
+
+    <button class="fullWidth mat-elevation-z6" mat-flat-button color="primary">Register</button>
+    <button class="fullWidth mat-elevation-z6" mat-stroked-button color="warn">Cancel</button>
+
+    
+</div>
