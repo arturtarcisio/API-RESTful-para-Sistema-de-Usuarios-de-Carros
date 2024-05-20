@@ -10,6 +10,7 @@ import { CarCreateComponent } from './components/car/car-create/car-create.compo
 import { CarUpdateComponent } from './components/car/car-update/car-update.component';
 import { InfouserComponent } from './components/infouser/infouser.component';
 import { CarDeleteComponent } from './components/car/car-delete/car-delete.component';
+import { UserListComponent } from './components/user/user-list/user-list.component';
 
 const routes: Routes = [
   { path:'login', component: LoginComponent},
@@ -21,7 +22,12 @@ const routes: Routes = [
       { path:'cars', component: CarListComponent },
       { path:'cars/create', component: CarCreateComponent },
       { path:'cars/update/:id', component: CarUpdateComponent },    
-      { path:'cars/delete/:id', component: CarDeleteComponent },    
+      { path:'cars/delete/:id', component: CarDeleteComponent },  
+      
+      { path:'users', component: UserListComponent},
+      { path:'users/create', component: CarCreateComponent },
+      { path:'users/update/:id', component: CarUpdateComponent },    
+      { path:'users/delete/:id', component: CarDeleteComponent }, 
       
       {path: 'about', component: AboutComponent}
     ]

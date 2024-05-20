@@ -9,5 +9,5 @@ export interface User {
     login:     string
     password:  string
     phone:     string
-    //cars: Car[]
+    cars: Car[]
 }

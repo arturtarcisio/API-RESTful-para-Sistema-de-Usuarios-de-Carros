@@ -12,22 +12,22 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<User[]>{
-    return this.http.get<User[]>(`${API_CONFIG.baseUrl}/cars`)
+    return this.http.get<User[]>(`${API_CONFIG.baseUrl}/users`)
   }
 
   findById(id: any): Observable<User>{
-    return this.http.get<User>(`${API_CONFIG.baseUrl}/cars/${id}`)
+    return this.http.get<User>(`${API_CONFIG.baseUrl}/users/${id}`)
   }
 
   create(car: User): Observable<User> {
-    return this.http.post<User>(`${API_CONFIG.baseUrl}/cars`, car)
+    return this.http.post<User>(`${API_CONFIG.baseUrl}/users`, car)
   }
 
   update(car: User): Observable<User> {
-    return this.http.put<User>(`${API_CONFIG.baseUrl}/cars/${car.id}`, car)
+    return this.http.put<User>(`${API_CONFIG.baseUrl}/users/${car.id}`, car)
   }
 
   deleteById(id: any): Observable<User>{
-    return this.http.delete<User>(`${API_CONFIG.baseUrl}/cars/${id}`)
+    return this.http.delete<User>(`${API_CONFIG.baseUrl}/users/${id}`)
   }
 }
