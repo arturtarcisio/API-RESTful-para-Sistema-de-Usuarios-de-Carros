@@ -33,6 +33,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ToastrModule } from 'ngx-toastr';
 import { timeout } from 'rxjs';
 import { AboutComponent } from './components/about/about.component';
+import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 
 
 
@@ -77,6 +78,7 @@ import { AboutComponent } from './components/about/about.component';
     })
   ],
   providers: [
+    AuthInterceptorProvider,
     provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
