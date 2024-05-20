@@ -17,7 +17,7 @@ export class UserUpdateComponent implements OnInit{
     firstName:      '',
     lastName:       '',
     email:          '',
-    birthday:       null,
+    birthday:       '',
     login:          '',
     password:       '',
     phone:          ''

@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -43,8 +44,8 @@ public class App implements CommandLineRunner
     @Override
     public void run(String... args) throws Exception {
 
-        User user1 = new User(1L,"Artur", "Silva", "artur@email.com",  new Date(93, 0, 14), "atcs", passwordEncoder.encode("h3ll0"), "81983351902", null, Instant.now(), null);
-        User user2 = new User(2L,"Maria", "Silva", "maria@email.com", new Date(93, 0, 14), "mcsf", passwordEncoder.encode("h3ll038475"), "81975843837", null, Instant.now(), null);
+        User user1 = new User(1L,"Artur", "Silva", "artur@email.com",  LocalDate.of(1993, 01, 14), "atcs", passwordEncoder.encode("h3ll0"), "81983351902", null, Instant.now(), null);
+        User user2 = new User(2L,"Maria", "Silva", "maria@email.com", LocalDate.of(1990, 12, 31), "mcsf", passwordEncoder.encode("h3ll038475"), "81975843837", null, Instant.now(), null);
 
         userRepository.saveAll(Arrays.asList(user1, user2));
 

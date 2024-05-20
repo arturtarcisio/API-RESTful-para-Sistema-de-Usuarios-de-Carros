@@ -1,5 +1,6 @@
 package io.github.arturtcs.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
@@ -10,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -42,7 +44,8 @@ public class User implements UserDetails {
     @NotEmpty(message = "{field.email.required}")
     private String email;
 
-    private Date birthday;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate birthday;
 
     @Column(nullable = false, length = 50)
     @NotEmpty(message = "{field.login.required}")

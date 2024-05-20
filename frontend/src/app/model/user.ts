@@ -5,7 +5,7 @@ export interface User {
     firstName: string
     lastName:  string
     email:     string
-    birthday:  any
+    birthday:  string
     login:     string
     password:  string
     phone:     string
