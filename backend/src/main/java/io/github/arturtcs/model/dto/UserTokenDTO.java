@@ -9,5 +9,5 @@ import java.util.Date;
 import java.util.List;
 
 @Builder
-public record UserTokenDTO(String firstName, String lastName, String login, String email, LocalDate birthday, String phone, List<Car> cars, Instant createdAt, Instant lastLogin) {
+public record UserTokenDTO(String firstName, String lastName, String login, String email, LocalDate birthday, String phone, List<Car> cars, LocalDate createdAt, LocalDate lastLogin) {
 }

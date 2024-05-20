@@ -63,11 +63,13 @@ public class User implements UserDetails {
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Car> cars = new ArrayList<>();
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(nullable = true)
-    private Instant createdAt;
+    private LocalDate createdAt;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(nullable = true)
-    private Instant lastLogin;
+    private LocalDate lastLogin;
 
     /**
      * Returns the authorities granted to the user.

@@ -4,10 +4,10 @@ export interface UserInfo {
     firstName: string
     lastName:  string
     email:     string
-    birthday:  Date | null
+    birthday:  string
     login:     string    
     phone:     string
     cars: Car[]
-    createAt:  Date | null
-    lastLogin: Date | null
+    createAt:  string
+    lastLogin: string
 }

@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Instant;
+import java.time.LocalDate;
 
 /**
  * Service implementation for authentication-related operations.
@@ -64,7 +65,7 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
         var auth = this.authenticationManager.authenticate(usernamePassword);
         var token = jwtService.generateToken((User) auth.getPrincipal());
         var user = loadUserByUsername(loginRequestDTO.login());
-        user.setLastLogin(Instant.now());
+        user.setLastLogin(LocalDate.now());
         userRepository.save(user);
         return new LoginResponseDTO(token, jwtService.getExpirationDate(), user.getLogin(), user.getEmail());
     }

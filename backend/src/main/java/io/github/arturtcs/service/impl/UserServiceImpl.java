@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -59,7 +60,7 @@ public class UserServiceImpl implements UserService {
         verifyIfEmailAlreadyExist(user.getEmail());
         verifyIfLoginAlreadyExist(user.getLogin());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setCreatedAt(Instant.now());
+        user.setCreatedAt(LocalDate.now());
         List<Car> cars = user.getCars();
         user.setCars(new ArrayList<>());
         User userSaved = userRepository.save(user);
