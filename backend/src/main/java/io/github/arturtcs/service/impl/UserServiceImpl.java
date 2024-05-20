@@ -128,7 +128,8 @@ public class UserServiceImpl implements UserService {
                     verifyIfLoginAlreadyExistForOtherUser(userUpdated.getLogin(), id);
                     user.setLogin(userUpdated.getLogin());
 
-                    user.setPassword(passwordEncoder.encode(userUpdated.getPassword()));
+                    if(!userUpdated.getPassword().equals(user.getPassword()))
+                        user.setPassword(passwordEncoder.encode(userUpdated.getPassword()));
 
                     validatePhone(userUpdated.getPhone());
                     user.setPhone(userUpdated.getPhone());
