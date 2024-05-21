@@ -7,7 +7,7 @@ Este projeto é parte de um desafio de desenvolvimento de software, onde são im
 Abaixo segue histórias de usuários que foram implementadas:
 
 ### Histórias de Usuário
-HU.00 - Criacao do projeto backend
+**HU.00** - Criacao do projeto backend
 HU.01 - Adicionando dependências springboot no pom
 HU.02 - Criando entidade carro
 HU.03 - Criando car repository
