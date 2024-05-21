@@ -28,6 +28,7 @@ export class UserListComponent implements OnInit{
 
   findAll(){
     this.userService.findAll().subscribe(response => {
+      console.log(response)
       this.ELEMENT_DATA = response
       console.log(this.ELEMENT_DATA)
       this.dataSource = new MatTableDataSource<User>(this.ELEMENT_DATA)

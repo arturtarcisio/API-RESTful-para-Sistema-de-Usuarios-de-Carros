@@ -60,4 +60,5 @@ public interface CarService {
      * @param car   The updated car information.
      */
     void updateCarUserLogged(String token, Long id, Car car);
+
 }

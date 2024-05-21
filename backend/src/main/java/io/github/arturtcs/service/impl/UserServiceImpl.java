@@ -109,33 +109,33 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User updateUser(Long id, User userUpdated) {
-        return userRepository
-                .findById(id)
-                .map(user -> {
-                    userUpdated.setId(user.getId());
-                    validateStringOnlyLetters(userUpdated.getFirstName(), "firstName");
-                    user.setFirstName(userUpdated.getFirstName());
+        return userRepository.findById(id).map(user -> {
+            userUpdated.setId(user.getId());
 
-                    validateStringOnlyLetters(userUpdated.getLastName(), "lastName");
-                    user.setLastName(userUpdated.getLastName());
+            validateStringOnlyLetters(userUpdated.getFirstName(), "firstName");
+            user.setFirstName(userUpdated.getFirstName());
 
-                    validateEmail(userUpdated.getEmail());
-                    verifyIfEmailAlreadyExistForOtherUser(userUpdated.getEmail(), id);
-                    user.setEmail(userUpdated.getEmail());
+            validateStringOnlyLetters(userUpdated.getLastName(), "lastName");
+            user.setLastName(userUpdated.getLastName());
 
-                    verifyIfLoginAlreadyExistForOtherUser(userUpdated.getLogin(), id);
-                    user.setLogin(userUpdated.getLogin());
+            validateEmail(userUpdated.getEmail());
+            verifyIfEmailAlreadyExistForOtherUser(userUpdated.getEmail(), id);
+            user.setEmail(userUpdated.getEmail());
 
-                    if(!userUpdated.getPassword().equals(user.getPassword()))
-                        user.setPassword(passwordEncoder.encode(userUpdated.getPassword()));
+            verifyIfLoginAlreadyExistForOtherUser(userUpdated.getLogin(), id);
+            user.setLogin(userUpdated.getLogin());
 
-                    validatePhone(userUpdated.getPhone());
-                    user.setPhone(userUpdated.getPhone());
+            if (!userUpdated.getPassword().equals(user.getPassword())) {
+                user.setPassword(passwordEncoder.encode(userUpdated.getPassword()));
+            }
 
-                    return userRepository.save(user);
-                })
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+            validatePhone(userUpdated.getPhone());
+            user.setPhone(userUpdated.getPhone());
+
+            return userRepository.save(user);
+        }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
     }
+
 
 
     private void verifyIfEmailAlreadyExistForOtherUser(String email, Long userId) {

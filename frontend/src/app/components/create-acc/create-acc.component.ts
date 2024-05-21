@@ -42,6 +42,12 @@ export class CreateAccComponent {
   }
 
   create(): void {
+    if (typeof this.user.birthday === 'string') {
+      const parts = this.user.birthday.split('/');
+      const birthdayDate = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
+      
+      this.user.birthday = birthdayDate;
+    }
     this.userService.create(this.user).subscribe(() => {
       this.toast.success('User registered successfully', 'Register');
       this.router.navigate(['login']);
