@@ -167,11 +167,11 @@ password: h3ll038475
   ]<br>
 }<br>
 
-Exemplo de JSON para autenticação:
-{
-  "login": "atcs",
-  "password": "h3ll0"
-}
+Exemplo de JSON para autenticação:<br>
+{<br>
+  "login": "atcs",<br>
+  "password": "h3ll0"<br>
+}<br>
 
   ![image](https://github.com/arturtarcisio/API-RESTful-para-Sistema-de-Usuarios-de-Carros/assets/42079767/c1988dc2-83e1-4bcc-a779-7390cd62e4dd)
 
