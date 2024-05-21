@@ -27,14 +27,14 @@ public class Car implements Serializable {
 
     private int carYear;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 12)
     @NotEmpty(message = "{field.licensePlate.required}")
     private String licensePlate;
 
-    @Column(nullable = false, length = 50)
-    @NotEmpty(message = "{field.carModel.required}")
+    @Column(length = 25)
     private String model;
 
+    @Column(length = 25)
     private String color;
 
     @JsonIgnore
