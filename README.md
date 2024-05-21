@@ -149,23 +149,23 @@ password: h3ll038475
 - **PUT /api/cars/{id}**: Atualiza um carro do usuário logado pelo ID.
 
   Exemplo de JSON para criação de usuário:
-{
-  "firstName": "Hello",
-  "lastName": "World",
-  "email": "hello@world.com",
-  "birthday": "1990-05-01",
-  "login": "hello.world",
-  "password": "h3ll0",
-  "phone": "988888888",
-  "cars": [
-    {
-    "carYear": 2018,
-    "licensePlate": "PDV-0625",
-    "model": "Audi",
-    "color": "White"
-    }
-  ]
-}
+{ <br>
+  "firstName": "Hello",<br>
+  "lastName": "World",<br>
+  "email": "hello@world.com",<br>
+  "birthday": "1990-05-01",<br>
+  "login": "hello.world",<br>
+  "password": "h3ll0",<br>
+  "phone": "988888888",<br>
+  "cars": [<br>
+    {<br>
+    "carYear": 2018,<br>
+    "licensePlate": "PDV-0625",<br>
+    "model": "Audi",<br>
+    "color": "White"<br>
+    }<br>
+  ]<br>
+}<br>
 
 Exemplo de JSON para autenticação:
 {
