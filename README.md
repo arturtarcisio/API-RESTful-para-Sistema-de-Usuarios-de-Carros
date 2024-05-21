@@ -7,34 +7,92 @@ Este projeto é parte de um desafio de desenvolvimento de software, onde são im
 Abaixo segue histórias de usuários que foram implementadas:
 
 ### Histórias de Usuário
-1. **HU.00** - Criacao do projeto backend
-2. **HU.01** - Adicionando dependências springboot no pom
-3. **HU.02** - Criando entidade carro
-4. **HU.03** - Criando car repository
-5. **HU.04** - Criando entidade user e user repository
-6. **HU.05** - Configurando application.properties com h2 e massa de dados
-7. **HU.06** - Criando associacao entre user e car e ajustando massa de dados
-8. **HU.07** - Criando rota /api/users para listar todos os usuarios
-9. **HU.08** - Criando rota /api/users para cadastrar usuarios e validacao se carro ja existe
-10. **HU.09** - Criando rota /api/users/{id} para buscar usuario por id
-11. **HU.10** - Criando rota /api/users/{id} para remover usuario
-12. **HU.11** - Trocando os retornos dos endpoint
-13. **HU.12** - Criando validacoes e exceptions
-14. **HU.13** - Adicionando swagger ao projeto
-15. **HU.14** - Adicionando descricao aos endpoint no swagger
-16. **HU.15** - Adicionando spring security e configurando jwt
-17. **HU.16** - Criando rota /api/signin para autenticar no sistema com token
-18. **HU.17** - Criando massa de dados via CLR com senha criptografada
-19. **HU.18** - Configurando tokenService para retornar dados do usuario do token e criacao de rota /api/me para retornar esses dados
-20. **HU.19** - Configurando retornos para a rota /api/me quando token invalido ou nao enviado
-21. **HU.20** - Incrementando a rota /api/me para trazer createdAt e lastLogin no objeto de retorno
-22. **HU.21** - Criando rota /api/cars para listar carros do usuario logado
-23. **HU.22** - Mudando mapeamento de entidade e criando funcionalidade de cadastrar um carro para usuario logado
-24. **HU.22** - Criando funcionalidade uscar um carro do usuário logado pelo id
-25. **HU.23** - Criando funcionalidade de remover um carro do usuário logado pelo id
-26. **HU.24** - Criando funcionalidade de atualizar um carro do usuário logado pelo id
-27. **HU.25** - Ajuste ao salvar usuario por consequencia do mapeamento
-28. **HU.26** - Ajuste de codigo, em validacoes e nas exceptions
+HU.00 - Criacao do projeto backend
+HU.01 - Adicionando dependências springboot no pom
+HU.02 - Criando entidade carro
+HU.03 - Criando car repository
+HU.04 - Criando entidade user e user repository
+HU.05 - Configurando application.properties com h2 e massa de dados
+HU.06 - Criando associacao entre user e car e ajustando massa de dados
+HU.07 - Criando rota /api/users para listar todos os usuarios
+HU.08 - Criando rota /api/users para cadastrar usuarios e validacao se carro ja existe
+HU.09 - Criando rota /api/users/{id} para buscar usuario por id
+HU.10 - Criando rota /api/users/{id} para remover usuario
+HU.11 - Trocando os retornos dos endpoint
+HU.12 - Criando validacoes e exceptions
+HU.13 - Adicionando swagger ao projeto
+HU.14 - Adicionando descricao aos endpoint no swagger
+HU.15 - Adicionando spring security e configurando jwt
+HU.16 - Criando rota /api/signin para autenticar no sistema com token
+HU.17 - Criando massa de dados via CLR com senha criptografada
+HU.18 - Configurando tokenService para retornar dados do usuario do token e criacao de rota /api/me para retornar esses dados
+HU.19 - Configurando retornos para a rota /api/me quando token invalido ou nao enviado
+HU.20 - Incrementando a rota /api/me para trazer createdAt e lastLogin no objeto de retorno
+HU.21 - Criando rota /api/cars para listar carros do usuario logado
+HU.22 - Mudando mapeamento de entidade e criando funcionalidade de cadastrar um carro para usuario logado
+HU.22 - Criando funcionalidade uscar um carro do usuário logado pelo id
+HU.23 - Criando funcionalidade de remover um carro do usuário logado pelo id
+HU.24 - Criando funcionalidade de atualizar um carro do usuário logado pelo id
+HU.25 - Ajuste ao salvar usuario por consequencia do mapeamento
+HU.26 - Ajuste de codigo, em validacoes e nas exception
+HU28 - Alteração em toda a estrutura do security e como é gerado token JWT
+HU29 - Refatoração da parte da autenticação e criacao de javadoc para todo o projeto
+HU30 - Criacao de testes unitarios para meu servico de autenticacao
+HU31 - Criacao de testes unitarios para meu servico de carro
+HU32 - Criacao de testes unitarios para minhas funcionalidades de JWT
+HU33 - Criacao de testes unitarios para meu servico de usuarios
+HU34 - Ajuste na funcionalidade de atualizar carro pra usuario logado
+HU35 - Ajuste na funcionalidade de login para retornar exceção personalizada
+HU36 - Ajuste na funcionalidade de update de usuario
+HU37 - Ajuste na rota api/me erro de token
+HU38 - Resolvido problema de token com a rota me
+HU39 - Arquivo system.properties criado para deploy no heroku
+HU40 - Adicionando angular material ao projeto
+HU41 - Adicionando imports do material
+HU42 - Criando nav e adicionando rota
+HU43 - html e css para componente nav
+HU44 - Componente home criado
+HU45 - Rota para componente home
+HU46 - HTML e CSS para componente home
+HU47 - HTML e CSS para componente home
+HU48 - Componente header criado
+HU49 - HTML e CSS para header
+HU50 - Componente car-list criado
+HU51 - Rota para car-list criado
+HU52 - HTML e CSS do componente car-list
+HU53 - Criando componente de login e sua rota
+HU54 - HTML e CSS do componente de login
+HU55 - Validação de formularios para login
+HU56 - Adição do toastr ao projeto
+HU57 - Mensagem com toast ao logar
+HU58 - Componente about e rota criado
+HU59 - HTML e CSS do componente about
+HU60 - Autenticacao de login
+HU61 - Funcionalidade de logout
+HU62 - Criacao e configuracao de interceptor para requisicoes http
+HU63 - Finalizando componente car-list
+HU64 - Criando componente de car-create e sua rota
+HU65 - HTML e CSS para componente car-create
+HU66 - Finalizado funcionalidade de criar um car
+HU67 - Adicionando rotas no interceptor que não irão precisa de token de autenticacao
+HU68 - Botoes de acao para car-list
+HU69 - Componente car-update finalizado
+HU70 - Componente infoUser criado e HTML CSS ROTA
+HU71 - Componente car-delete criado e sua rota
+HU72 - Funcionalidade de deletar
+HU73 - Criando os servicos de user
+HU74 - Criado componente user-list
+HU74 - Criado componente user-create
+HU74 - Criado componente user-delete
+HU74 - Criado componente user-update
+HU76 - Bug fix do password do user
+HU77 - Bug fix de atualização de user
+HU78 - Alteracao de tipo de data e github na nav
+HU79 - Funcionalidade e componente de create account criado
+HU80 - Bugfix no cadastro de user
+HU81 - Bugfix relacionado a input de data
+HU81 - Projeto finalizado ultimos ajustes
+ 
 
 # Solução
 
