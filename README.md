@@ -148,6 +148,31 @@ password: h3ll038475
   
 - **PUT /api/cars/{id}**: Atualiza um carro do usuário logado pelo ID.
 
+  Exemplo de JSON para criação de usuário:
+{
+  "firstName": "Hello",
+  "lastName": "World",
+  "email": "hello@world.com",
+  "birthday": "1990-05-01",
+  "login": "hello.world",
+  "password": "h3ll0",
+  "phone": "988888888",
+  "cars": [
+    {
+    "carYear": 2018,
+    "licensePlate": "PDV-0625",
+    "model": "Audi",
+    "color": "White"
+    }
+  ]
+}
+
+Exemplo de JSON para autenticação:
+{
+  "login": "atcs",
+  "password": "h3ll0"
+}
+
   ![image](https://github.com/arturtarcisio/API-RESTful-para-Sistema-de-Usuarios-de-Carros/assets/42079767/c1988dc2-83e1-4bcc-a779-7390cd62e4dd)
 
   ### Passo a Passo para Executar uma Aplicação Spring Boot
